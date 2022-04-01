@@ -2,5 +2,23 @@ extends layout
 
 block content
   .content
-    .tower
-      div bla-bla
+    .Wr
+      include elems/header
+      include elems/house
+
+  script.
+    var user=!{JSON.stringify(user)}
+    document.getElementById("userName").innerHTML=user.f+" "+user.i
+    status();
+    var statusTimeout;
+    async function status(){
+      var st=await axios.get("/api/status");
+
+      statusTimeout=setTimeout(status,20*1000)
+    }
+    async function logout(){
+      clearTimeout(statusTimeout);
+      var dt=await axios.get("/api/logout");
+      if(dt.data.success)
+        window.location.reload();
+    }

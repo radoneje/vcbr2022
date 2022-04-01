@@ -6,11 +6,11 @@ block content
             .lBox
                 .lBoxTitle Регистрация
                 .lBoxItem
-                    input.lBoxInput#f(type="text" placeholder="Фамилия")
+                    input.lBoxInput#f(type="text" placeholder="Фамилия" )
                 .lBoxItem
                     input.lBoxInput#i(type="text" placeholder="Имя")
                 .lBoxItem
-                    .lBoxInput#lDepartBox(onclick="document.getElementById('lDepartWr').classList.remove('hidden')")
+                    .lBoxInput#lDepartBox(onclick="document.getElementById('lDepartWr').classList.remove('hidden')" onkeyup="")
                         #lDepartTitle
                             span#lDepartTitlePlaceholeder Подразделение
                         #lDepartIcon
@@ -27,7 +27,7 @@ block content
                             <svg class="spinner" viewBox="0 0 50 50">
                             <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
                             </svg>
-                #BoxError.hidden Ошибка: проверьте Фамилию, имя и код
+                #BoxError.hidden
 
             .lSupportBox
                 .lsupportIcon
@@ -56,10 +56,22 @@ block content
                     let elem = document.getElementById("lDepartTitle");
                     elem.innerHTML=d.title;
                     elem.setAttribute("department",d.id)
-                    e.target.parentElement.classList.add('hidden')
+                    e.target.parentElement.classList.add('hidden');
+                    document.getElementById("code").focus();
                 })
                 document.getElementById("lDepartWr").appendChild(item);
+
+                document.querySelectorAll("input.lBoxInput").forEach(elem=>{
+                    elem.addEventListener("keyup",(event)=>{
+                        if (event.code === 'Enter') {
+                            login(document.getElementById("lBoxISubmit"))
+                        }
+                    })
+                })
+                document.getElementById("f").focus();
+
             })
+
 
         })();
         const login= async (ctrl)=>{
@@ -116,7 +128,12 @@ block content
 
                 }
                 else{
-
+                    if(r.data.doubleLogin){
+                        document.getElementById("BoxError").innerHTML="Ошибка: Выполнен вход с дугого устройства.<br> Попробуйте через 30 секунд или выйдите с этого сайта на других вкладках браузера."
+                    }
+                    else {
+                        document.getElementById("BoxError").innerHTML="Ошибка: проверьте Фамилию, имя и код"
+                    }
                     document.querySelectorAll(".lBoxInput.error").forEach(e => {
                         e.classList.remove("error")
                     })

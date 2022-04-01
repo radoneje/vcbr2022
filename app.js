@@ -4,7 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var lessMiddleware = require('less-middleware');
 var logger = require('morgan');
-
+var moment = require('moment');
 
 var session = require('express-session');
 
@@ -49,8 +49,11 @@ app.use(lessMiddleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session(sess));
-app.use("/", (req,res, next)=>{req.knex=knex;next();});
 
+let users=[];
+app.use("/", (req,res, next)=>{req.knex=knex;next();});
+app.use("/", (req,res, next)=>{req.users=users;next();});
+app.use("/", (req,res, next)=>{req.clearUser=function(userid){users=users.filter(u=>{return u.id!=userid})};next();});
 
 app.use('/', indexRouter);
 app.use('/api', apiRouter);
@@ -71,4 +74,11 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+setInterval(()=>{
+  var time=moment().unix()-25;
+  users=users.filter(u=>{return u.time>time});
+  console.log(users.length)
+},30*1000)
+
+setTimeout(()=>{console.log(moment().unix())},1000);
 module.exports = app;
