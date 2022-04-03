@@ -1,25 +1,19 @@
 extends layout
 
 block content
+  <link href="/javascripts/video-js.css" rel="stylesheet" />
   .content
     .Wr
       include elems/header
       include elems/house
       include elems/prog
-
+      include elems/quote
+      include elems/spk
+      include elems/footer
+  script(src="/javascripts/video.js")
+  script(src="/javascripts/vue.min.js")
+  script(src="/javascripts/moment.min.js")
   script.
     var user=!{JSON.stringify(user)}
-    document.getElementById("userName").innerHTML=user.f+" "+user.i
-    status();
-    var statusTimeout;
-    async function status(){
-      var st=await axios.get("/api/status");
+  script(src="/javascripts/mainScript.js")
 
-      statusTimeout=setTimeout(status,20*1000)
-    }
-    async function logout(){
-      clearTimeout(statusTimeout);
-      var dt=await axios.get("/api/logout");
-      if(dt.data.success)
-        window.location.reload();
-    }

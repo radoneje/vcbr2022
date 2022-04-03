@@ -17,9 +17,9 @@
             </svg>
 
         .menuBox
-            .menuItem Трансляция
-            .menuItem Расписание
-            .menuItem Спикеры
+            .menuItem(onclick="document.location.href='#iframeBox'") Трансляция
+            .menuItem(onclick="document.location.href='#pgm'") Программа
+            .menuItem(onclick="document.location.href='#spk'") Спикеры
             .menuItem(onclick="logout()")
-                .menuItemTitle#userName Виталий Обломов
+                .menuItemTitle#userName !{user.f+" "+user.i}
                 .menuItemButton Выход

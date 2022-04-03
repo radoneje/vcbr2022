@@ -1,4 +1,4 @@
-.prog
+.prog#pgm
     .tower
         .progTitleWr
             .progTitle ПРОГРАММА
@@ -10,40 +10,94 @@
                 .progItemTitle ПРИОРИТЕТНЫЕ ЗАДАЧИ И ПРОЕКТЫ БАНКА РОССИИ 2022
                 .progUserTitle Модератор
                 .progUserWr
-                    .progUserPhoto
-                        img(src="/images/skorobogatova.png")
-                    .progUserTitleWr
-                        .progUserItemTitle Скоробогатова О.Н.
-                        .progUserItemPosition Первый Заместитель Председателя Банка России
+                    include spk/skor
                 .progUserTitle Участники
                 .progUserWr
-                    .progUserPhoto
-                        img(src="/images/tulin.png")
-                    .progUserTitleWr
-                        .progUserItemTitle Тулин Д.В.
-                        .progUserItemPosition Первый Заместитель Председателя Банка России
+                    include spk/tulin
                 .progUserWr
-                    .progUserPhoto
-                        img(src="/images/udaeva.png")
-                    .progUserTitleWr
-                        .progUserItemTitle Юдаева К.В.
-                        .progUserItemPosition Первый Заместитель Председателя Банка России
+                    include spk/udaeva
                 .progUserWr
-                    .progUserPhoto
-                        img(src="/images/chist.png")
-                    .progUserTitleWr
-                        .progUserItemTitle Чистюхин В.В.
-                        .progUserItemPosition Первый Заместитель Председателя Банка России
+                    include spk/chist
                 .progUserWr
-                    .progUserPhoto
-                        img(src="/images/gabunia.png")
-                    .progUserTitleWr
-                        .progUserItemTitle Габуния Ф.Г.
-                        .progUserItemPosition Заместитель Председателя Банка России
+                    include spk/gabunia
+                .progBottomPlaceholder
+                .progItemBottom
+                    .progTime 10:50 – 11:00
+                    .progItemTitle
+                        include cofee
+                        div Перерыв
 
 
             .progCell(style="flex: 50%;")
-                .progTime 9:30 - 10:50
+                .progTime 11:00 – 12:20
                 .progItemFormat Панельная дискуссия
-                .progItemTitle ПРИОРИТЕТНЫЕ ЗАДАЧИ И ПРОЕКТЫ БАНКА РОССИИ 2022
+                .progItemTitle БОРЬБА С МОШЕННИЧЕСТВОМ <br>&nbsp;
+                .progUserTitle Модератор
+                .progUserWr
+                        include spk/mamuta
+                .progUserTitle Участники
+                .progUserWr
+                    include spk/zubarev
+                .progUserWr
+                    include spk/isaev
+                .progUserWr
+                    include spk/lyah
+                .progBottomPlaceholder
+                .progItemBottom
+                        .progTime 10:50 – 11:00
+                        .progItemTitle
+                            include cofee
+                            div Перерыв
+        .progRow
+            .progCell(style="flex: 100%;")
+                .progTime 13:00 – 13:30
+                .progItemFormat Открытие совещания
+                .progItemTitle ВЫСТУПЛЕНИЕ ПРЕДСЕДАТЕЛЯ БАНКА РОССИИ
+                .progUserWr
+                    include spk/nabiulina
+                .progBottomPlaceholder
+                .progItemBottom
+                        .progTime 13:30 – 13:40
+                        .progItemTitle
+                            include cofee
+                            div Перерыв
+        .progRow
+            .progCell(style="flex: 50%;")
+                .progTime 13:40 – 15:00
+                .progItemFormat Панельная дискуссия
+                .progItemTitle РАБОТА ФИНАНСОВОЙ СИСТЕМЫ<br>В УСЛОВИЯХ<br>САНКЦИОННЫХ ОГРАНИЧЕНИЙ
+                .progUserTitle Модератор
+                .progUserWr
+                    include spk/zabotkin
+                .progUserTitle Участники
+                .progUserWr
+                    include spk/nabiulina
+                .progBottomPlaceholder
+                .progItemBottom
+                        .progTime 15:00 – 15:10
+                        .progItemTitle
+                            include cofee
+                            div Перерыв
+            .progCell(style="flex: 50%;")
+                .progTime 15:10 – 16:30
+                .progItemFormat Панельная дискуссия
+                .progItemTitle НОВЫЕ ВВОДНЫЕ ДЛЯ РЫНКА ТРУДА: <br>ГОССЕКТОР VS БИЗНЕС<br>&nbsp;
+                .progUserTitle Модератор
+                .progUserWr
+                    include spk/vester
+                .progUserTitle Участники
+                .progUserWr
+                    include spk/jukov
+                .progUserWr
+                    include spk/terentyeva
+                .progBottomPlaceholder
+                .progItemBottom
+                    .progTime 16:30
+                    .progItemTitle
+                        <svg width="40" height="41" viewBox="0 0 40 41" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle opacity="0.1" cx="20" cy="20.5" r="20" fill="#74777B"/>
+                        <path d="M12 21L18 27L28 15" stroke="#74777B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
 
+
+                        div Подведение итогов
