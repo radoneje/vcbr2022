@@ -4,7 +4,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/depatments', async (req, res,next)=>{
-  res.json(await req.knex.select("*").from("t_departments").orderBy("title"));
+  res.json(await req.knex.select("*").from("t_departments").orderBy("id"));
 });
 router.post('/login', async (req, res,next)=>{
   let code=parseInt(req.body.code);

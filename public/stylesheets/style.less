@@ -160,7 +160,7 @@ body {
 
 }
 .tower{
-  max-width: 1670px;
+  max-width: 1200px;// 1670px;
   margin:0 auto;
 }
 .lTower{
@@ -306,6 +306,9 @@ body {
   justify-content: flex-end;
   gap: 24px;
   align-items: center;
+}
+.menuMobileBox{
+  display:none;
 }
 .menuItem{
 
@@ -778,6 +781,9 @@ body {
 .progBtnIcon{
   display:none;
 }
+.mobileMenuWr{
+  display:none;
+}
 
 @media screen  and (max-width:1400px){
   .subTitle {
@@ -1001,6 +1007,59 @@ body {
   }
   .spk .progTitleWr{
     padding:0;
+  }
+  .menuMobileBox{
+    display:block;
+    cursor: pointer;
+  }
+  .mobileMenuWr.show{
+    display:block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #FFFFFF;
+    z-index: 100;
+    box-sizing: border-box;
+    padding:16px;
+
+  }
+
+  .mobileMenuHeader{
+    padding-bottom:12px;
+    border-bottom:1px solid #D4D4D4;
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+  }
+  .mobileMenuWr .menuBox{
+    color: #555555;
+    display: flex;
+    flex-direction: column;
+    margin-top: 100px;
+    gap: 40px;
+  }
+  .lastMenuItem{
+    display:block;
+    margin-top:20px;
+    text-align:center;
+    border-top: 1px solid #C6C6C7;
+    padding-top:40px;
+  }
+  .menuItemButton{
+    width:90vw;
+    border: 1px solid #0088BB;
+    padding:14px 0;
+    margin-top: 12px;
+    filter: drop-shadow(0px 4px 12px rgba(0, 136, 187, 0.16));
+    border-radius: 8px;
+  }
+  .mobileMenuFooter{
+    color:#555555;
+  }
+  .mobileMenuFooter path, .mobileMenuFooter circle{
+    fill:#555555;
   }
 }
 

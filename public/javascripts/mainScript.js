@@ -123,7 +123,6 @@ let app=new Vue({
 })();
 
 async function logout(){
-    clearTimeout(statusTimeout);
     var dt=await axios.get("/api/logout");
     if(dt.data.success)
         window.location.reload();
