@@ -110,7 +110,7 @@ body {
   font-family: 'Stem';
   font-size: 12px;
   line-height: 15px;
-  font-weight:400;
+  font-weight:300;
 }
 .loader,
 .loader:after {
@@ -299,7 +299,7 @@ body {
   padding-bottom: 24px;
 }
 .menuBox{
-  font-weight: 400;
+  font-weight: 300;
   font-size: 18px;
   line-height: 23px;
   display: flex;
@@ -337,7 +337,7 @@ body {
   width:100%;
 }
 .subTitle{
-  font-weight: 400;
+  font-weight: 300;
   font-size: 40px;
   line-height: 52px;
   /* identical to box height */
@@ -350,7 +350,7 @@ body {
 
   left: 0;
   width: 100%;
-  top: 12%;
+  top: 14%;
 }
 .titleBox{
 
@@ -374,7 +374,7 @@ body {
 }
 .date{
   margin-top: 24px;
-  font-weight: 400;
+  font-weight: 300;
   font-size: 24px;
   line-height: 31px;
   color: rgba(255,255,255,0.8);
@@ -456,7 +456,7 @@ body {
   color: #0088BB;
 }
 .progItemFormat{
-  font-weight: 400;
+  font-weight: 300;
   font-size: 24px;
   line-height: 31px;
   /* identical to box height */
@@ -493,13 +493,13 @@ body {
 }
 .progUserPhoto{}
 .progUserItemTitle{
-  font-weight: 400;
+  font-weight: 300;
   font-size: 20px;
   line-height: 26px;
   opacity: 0.8;
 }
 .progUserItemPosition{
-  font-weight: 400;
+  font-weight: 300;
   font-size: 16px;
   line-height: 21px;
   /* identical to box height */
@@ -523,7 +523,7 @@ body {
 }
 .progItemBottom .progItemTitle{
 
-  font-weight: 400;
+  font-weight: 300;
   font-size: 32px;
   line-height: 41px;
 
@@ -552,7 +552,7 @@ body {
   width:74px;
 }
 .quoteText{
-  font-weight: 400;
+  font-weight: 300;
   font-size: 40px;
   line-height: 52px;
   margin-top: 34px;
@@ -583,7 +583,7 @@ body {
   margin-bottom: 24px;
 }
 .spkItem .progUserItemTitle{
-  font-weight: 400;
+  font-weight: 300;
   font-size: 24px;
   line-height: 36px;
   /* identical to box height, or 150% */
@@ -591,7 +591,7 @@ body {
   margin-bottom:12px;
 }
 .spkItem  .progUserItemPosition{
-  font-weight: 400;
+  font-weight: 300;
   font-size: 18px;
   line-height: 28px;
   /* or 156% */
@@ -690,7 +690,7 @@ body {
 }
 .qItem{
   margin:16px 30px;
-  font-weight: 400;
+  font-weight: 300;
   font-size: 16px;
   line-height: 22px;
   /* or 138% */
@@ -746,7 +746,7 @@ body {
   color: #0088BB;
 }
 .qItemDepartment{
-  font-weight: 400;
+  font-weight: 300;
   font-size: 16px;
   line-height: 22px;
   /* identical to box height, or 138% */
@@ -755,7 +755,7 @@ body {
   color: #555555;
 }
 .qItemText{
-  font-weight: 400;
+  font-weight: 300;
   font-size: 16px;
   line-height: 22px;
   /* or 138% */
@@ -765,7 +765,7 @@ body {
   margin-top:8px;
 }
 .qItemTime{
-  font-weight: 400;
+  font-weight: 300;
   font-size: 14px;
   line-height: 18px;
   /* identical to box height */
@@ -774,6 +774,234 @@ body {
   color: #555555;
   margin-top:8px;
   width:100%;
+}
+.progBtnIcon{
+  display:none;
+}
+
+@media screen  and (max-width:1400px){
+  .subTitle {
+    top: 15%;
+  }
+  .progRow{
+    flex-wrap: wrap;
+  }
+  .spk{
+    padding-left: 115px;
+    padding-right: 115px;
+  }
+}
+@media screen  and (max-width:1100px){
+  .subTitle {
+    top: 13%;
+    width: 50%;
+    padding-left: 25%;
+    font-size: 26px;
+    line-height: 32px;
+  }
+  .title{
+    font-size: 51px;
+    line-height: 43px;
+  }
+  .spk, .quoteTitleWr{
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+  .quoteText{
+    font-size: 32px;
+    line-height: 42px;
+  }
+  .spkItem .progUserItemTitle{
+    font-size: 18px;
+    line-height: 18px;
+  }
+  .progUserItemPosition{
+    font-size: 14px;
+    line-height: 19px;
+  }
+  .spkItem .progUserPhoto img {
+    width: 150px;
+    margin-bottom: 24px;
+  }
+
+}
+@media screen  and (max-width:840px) {
+  .menuBox{
+    display:none
+  }
+  .logoBox svg{
+    height:32px;
+
+  }
+  .tower{
+    padding:10px;
+  }
+  .headerBox{
+    border-bottom:none;
+   // padding:10px;
+    padding-bottom: 0px;
+  }
+  .logoBox{
+    margin-left: -30px;
+  }
+  .house{
+    margin-top:0;
+  }
+  .subTitle{
+    display:none;
+  }
+  .date{
+    display:none;
+  }
+  .title{
+    font-size: 22px;
+    line-height: 28px;
+  }
+  .titleBox{
+    top:31vw;
+  }
+  .iframeBox{
+    position:inherit;
+    left:0;
+    right:0;
+    border:0;
+    border-radius:0;
+    border-top:2px solid white;
+    top: -39vh;
+  }
+  .house .tower{
+    padding:0;
+  }
+  .house svg {
+    width: ~"calc(100% - 20px)";
+    padding: 10px;
+  }
+.playerWr{
+  flex-direction: column;
+}
+  .playerLTop.lTop{
+    display:none;
+  }
+  .playerR{
+    flex:none !important;
+    height: 90vh;
+  }
+  .playerLTopButton svg{
+    padding:0;
+  }
+  .playerLTopButton{font-size: 12px;
+  line-height: 15px;}
+
+  .qItem{
+    font-size: 16px;
+    line-height: 22px;
+    margin:16px;
+  }
+  .sendBox svg{
+
+    width:15%;
+  }
+  .houseBg{
+    display:none
+  }
+  .prog{
+    padding-top: 0;
+   // margin-top: -289px;
+    border-top: 1px solid #D4D4D4;
+  }
+  .houseSvg{
+    margin-bottom: -64%;
+  }
+  .house .tower{
+    position: initial !important;
+  }
+  .prog{
+    padding-top:72px;
+    padding-bottom:72px;
+  }
+  .progTitle{
+    font-size: 32px;
+    line-height: 42px;
+  }
+  .progBtnText{
+    display:none;
+  }
+  .progBtnIcon{
+    display:block;
+  }
+  .progBtn{
+    padding: 0 6px
+  }
+  .progTitleWr{
+    justify-content: flex-start;
+    gap: 32px;
+    padding:0 16px;
+  }
+  .progTime{
+    font-size: 20px;
+    line-height: 28px;
+  }
+  .progItemFormat{
+    font-size: 18px;
+    line-height: 23px;
+  }
+  .progItemTitle{
+    font-size: 26px;
+    line-height: 34px;
+  }
+  .prog .tower{
+    padding:0;
+  }
+  .progCell{
+    padding:16px;
+    border-radius: 32px;
+  }
+  .progItemBottom .progItemTitle{
+    font-size: 22px;
+    line-height: 28px;
+  }
+  .quote{
+    padding:72px 0;
+  }
+  .quote .tower{
+    padding:0;
+  }
+  .quoteImg{
+    width:48px;
+  }
+  .quoteText{
+    font-weight: 300;
+    font-size: 22px;
+    line-height: 32px;
+    margin-top:16px;
+  }
+  .spk{
+    padding:16px;
+    padding-top:80px;
+  }
+  .spk .tower{
+    padding:0;
+  }
+  .spkRow{
+    flex-direction: column;
+  }
+  .spkItem .progUserItemTitle{
+    font-size: 24px;
+    line-height: 32px;
+    margin:0;
+  }
+  .spkItem .progUserItemPosition{
+    font-size: 18px;
+    line-height: 28px;
+    margin-top:0px;
+  }
+  .spkItem .progUserPhoto img{
+    width:128px;
+    margin-bottom:24px;
+  }
+  .spk .progTitleWr{
+    padding:0;
+  }
 }
 
 @media screen  and (max-width:480px){
