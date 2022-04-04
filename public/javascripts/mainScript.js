@@ -12,6 +12,8 @@ let app=new Vue({
     },
     methods:{
         chatSend:async function(){
+            if(this.chatText.length<1)
+                return;
             this.isLoading=true;
             try{
                 var r=await axios.post("/api/chatSend",{text:this.chatText});
@@ -33,6 +35,8 @@ let app=new Vue({
 
         },
         qSend:async function(){
+            if(this.qText.length<1)
+                return;
             this.isLoading=true;
             try{
                 var r=await axios.post("/api/qSend",{text:this.qText});
