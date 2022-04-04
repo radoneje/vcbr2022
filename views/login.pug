@@ -3,32 +3,33 @@ extends layout
 block content
     .content
         .lTower
-            .lBox
-                .lBoxTitle Регистрация
-                .lBoxItem
-                    input.lBoxInput#f(type="text" placeholder="Фамилия" )
-                .lBoxItem
-                    input.lBoxInput#i(type="text" placeholder="Имя")
-                .lBoxItem
-                    .lBoxInput#lDepartBox(onclick="document.getElementById('lDepartWr').classList.remove('hidden')" onkeyup="")
-                        #lDepartTitle
-                            span#lDepartTitlePlaceholeder Подразделение
-                        #lDepartIcon
-                            <svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path opacity="0.7" d="M1 1L6.29289 6.29289C6.68342 6.68342 7.31658 6.68342 7.70711 6.29289L13 1" stroke="#555555" stroke-width="1.5" stroke-linecap="round"/>
-                            </svg>
-                        #lDepartWr.hidden
-                .lBoxItem
-                    input.lBoxInput#code(type="text" placeholder="Код")
-                .lBoxItem
-                    #lBoxISubmit(onclick="login(this)")
-                        .lBoxISubmitTitle Войти
-                        .lBoxISubmitLoader
-                            <svg class="spinner" viewBox="0 0 50 50">
-                            <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
-                            </svg>
-                #BoxError.hidden
-            include elems/support
+            .LWr
+                .lBox
+                    .lBoxTitle Регистрация
+                    .lBoxItem
+                        input.lBoxInput#f(type="text" placeholder="Фамилия" )
+                    .lBoxItem
+                        input.lBoxInput#i(type="text" placeholder="Имя")
+                    .lBoxItem
+                        .lBoxInput#lDepartBox(onclick="document.getElementById('lDepartWr').classList.remove('hidden')" onkeyup="")
+                            #lDepartTitle
+                                span#lDepartTitlePlaceholeder Подразделение
+                            #lDepartIcon
+                                <svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path opacity="0.7" d="M1 1L6.29289 6.29289C6.68342 6.68342 7.31658 6.68342 7.70711 6.29289L13 1" stroke="#555555" stroke-width="1.5" stroke-linecap="round"/>
+                                </svg>
+                            #lDepartWr.hidden
+                    .lBoxItem
+                        input.lBoxInput#code(type="text" placeholder="Код")
+                    .lBoxItem
+                        #lBoxISubmit(onclick="login(this)")
+                            .lBoxISubmitTitle Войти
+                            .lBoxISubmitLoader
+                                <svg class="spinner" viewBox="0 0 50 50">
+                                <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+                                </svg>
+                    #BoxError.hidden
+                include elems/support
 
     script.
 
@@ -123,7 +124,7 @@ block content
                         document.getElementById("BoxError").innerHTML="Ошибка: Выполнен вход с дугого устройства.<br> Попробуйте через 30 секунд или выйдите с этого сайта на других вкладках браузера."
                     }
                     else {
-                        document.getElementById("BoxError").innerHTML="Ошибка: проверьте Фамилию, имя и код"
+                        document.getElementById("BoxError").innerHTML="Ошибка: проверьте фамилию, имя и код"
                     }
                     document.querySelectorAll(".lBoxInput.error").forEach(e => {
                         e.classList.remove("error")

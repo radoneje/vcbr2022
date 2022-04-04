@@ -120,6 +120,20 @@ let app=new Vue({
         this.updateStatus();
     }
 });
+document.querySelector(".up").addEventListener("click",()=>{
+    //document.body.scrollTop = document.documentElement.scrollTop = 0;
+    window.scrollTo({top: 0, behavior: 'smooth'});
+})
+
+
+    var observer = new IntersectionObserver((entries, observer)=>
+        {if(entries[0].isIntersecting)
+            document.querySelector('.up').classList.add('hidden')
+        else
+            document.querySelector('.up').classList.remove('hidden')
+        }, {root: null, rootMargin: '10px', threshold: [0.0, 0.0]});
+    observer.observe(document.querySelector('.headerBox'));
+
 })();
 
 async function logout(){
@@ -127,3 +141,29 @@ async function logout(){
     if(dt.data.success)
         window.location.reload();
 }
+function scrollToElement(elemId){
+    var elem=document.getElementById(elemId);
+    scrollToSmoothly(elem.offsetTop,600);
+}
+function scrollToSmoothly(pos, time) {
+    var currentPos = window.pageYOffset;
+    var start = null;
+    if(time == null) time = 500;
+    pos = +pos, time = +time;
+    window.requestAnimationFrame(function step(currentTime) {
+        start = !start ? currentTime : start;
+        var progress = currentTime - start;
+        if (currentPos < pos) {
+            window.scrollTo(0, ((pos - currentPos) * progress / time) + currentPos);
+        } else {
+            window.scrollTo(0, currentPos - ((currentPos - pos) * progress / time));
+        }
+        if (progress < time) {
+            window.requestAnimationFrame(step);
+        } else {
+            window.scrollTo(0, pos);
+        }
+    });
+}
+
+
