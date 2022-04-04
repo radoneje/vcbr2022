@@ -75,12 +75,14 @@ let app=new Vue({
                 }
             })
             this.chat= this.chat.filter(cc=>{return !cc.isDeleted || cc.userid==user.id})
-            if(inserted)
-                var objDiv = document.getElementById("chatBox");
-            if (objDiv)
-                setTimeout(function () {
-                    objDiv.scrollTop = objDiv.scrollHeight;
-                }, 0)
+
+            if(inserted) {
+                var objDiv1 = document.getElementById("chatBox");
+                if (objDiv1)
+                    setTimeout(function () {
+                        objDiv1.scrollTop = objDiv1.scrollHeight;
+                    }, 0)
+            }
             /////////////
 
             inserted=false;
@@ -99,16 +101,33 @@ let app=new Vue({
             })
             this.q= this.q.filter(cc=>{return !cc.isDeleted || cc.userid==user.id})
             if(inserted)
-                var objDiv = document.getElementById("qBox");
-            if (objDiv)
-                setTimeout(function () {
-                    objDiv.scrollTop = objDiv.scrollHeight;
-                }, 0)
+            {
+                var objDiv2 = document.getElementById("qBox");
+                console.log("objDiv2", objDiv2)
+                if (objDiv2)
+                    setTimeout(function () {
+                         objDiv2.scrollTop = objDiv2.scrollHeight;
+                    }, 10)
+            }
             ////////////
 
             setTimeout(()=>{
                this.updateStatus();
             }, 20*1000)
+        }
+    },
+    watch:{
+        isQActive:function(val){
+            var objDiv1 = document.getElementById("chatBox");
+            if (objDiv1)
+                setTimeout(function () {
+                    objDiv1.scrollTop = objDiv1.scrollHeight;
+                }, 0)
+            var objDiv2 = document.getElementById("qBox");
+            if (objDiv2)
+                setTimeout(function () {
+                    objDiv2.scrollTop = objDiv2.scrollHeight;
+                }, 0)
         }
     },
     mounted:function (){
