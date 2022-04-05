@@ -1,177 +1,231 @@
-
-(()=>{
-let app=new Vue({
-    el:"#app",
-    data:{
-        isQActive:false,
-        q:[],
-        chat:[],
-        qText:"",
-        chatText:[],
-        isLoading:false
-    },
-    methods:{
-        chatSend:async function(){
-            if(this.chatText.length<1)
-                return;
-            this.isLoading=true;
-            try{
-                var r=await axios.post("/api/chatSend",{text:this.chatText});
-                this.chat.push(r.data);
-                var objDiv = document.getElementById("chatBox");
-                if (objDiv)
-                    setTimeout(function () {
-                        objDiv.scrollTop = objDiv.scrollHeight;
-                    }, 0)
-                this.chatText="";
-            }
-            catch (e){
-                console.warn(e);
-            }
-            finally {
-                setTimeout(()=>{this.isLoading=false;},2000)
-
-            }
-
+(() => {
+    let app = new Vue({
+        el: "#app",
+        data: {
+            isQActive: false,
+            q: [],
+            chat: [],
+            qText: "",
+            chatText: [],
+            isLoading: false,
+            vote:[],
+            status:{}
         },
-        qSend:async function(){
-            if(this.qText.length<1)
-                return;
-            this.isLoading=true;
-            try{
-                var r=await axios.post("/api/qSend",{text:this.qText});
-                this.q.push(r.data);
-                var objDiv = document.getElementById("qBox");
-                if (objDiv)
-                    setTimeout(function () {
-                        objDiv.scrollTop = objDiv.scrollHeight;
-                    }, 0)
-                this.qText="";
-            }
-            catch (e){
-                console.warn(e);
-            }
-            finally {
-                setTimeout(()=>{this.isLoading=false;},2000)
+        methods: {
 
-            }
+            getCalcPercent:function(total, count){
 
+                var perc = getPercent(total, count);
+                return  'calc(100% - '+perc+')';
+            },
+            getPercent:function(total, count){
+                if (total == 0)
+                    return "0%"
+                var perc = (parseFloat(count) / parseFloat(total) * 100);
+                return perc.toPrecision(4) + "%"
+            },
+            voiting:async function(item){
+                var store=localStorage.getItem("vote"+item.voteid);
+                if(store==item.id)
+                    return
+                if(store) {
+
+                    await axios.post("/api/reVote", {id: store});
+                }
+                await axios.post("/api/Vote", {id: store});
+                localStorage.setItem("vote"+item.voteid, item.id);
+                this.vote=this.vote.filter(v=>{return true});
+
+            },
+            checkVote:function(item){
+                var store=localStorage.getItem("vote"+item.voteid);
+                return store==item.id;
+            },
+            chatSend: async function () {
+                if (this.chatText.length < 1)
+                    return;
+                this.isLoading = true;
+                try {
+                    var r = await axios.post("/api/chatSend", {text: this.chatText});
+                    this.chat.push(r.data);
+                    var objDiv = document.getElementById("chatBox");
+                    if (objDiv)
+                        setTimeout(function () {
+                            objDiv.scrollTop = objDiv.scrollHeight;
+                        }, 0)
+                    this.chatText = "";
+                } catch (e) {
+                    console.warn(e);
+                } finally {
+                    setTimeout(() => {
+                        this.isLoading = false;
+                    }, 2000)
+
+                }
+
+            },
+            qSend: async function () {
+                if (this.qText.length < 1)
+                    return;
+                this.isLoading = true;
+                try {
+                    var r = await axios.post("/api/qSend", {text: this.qText});
+                    this.q.push(r.data);
+                    var objDiv = document.getElementById("qBox");
+                    if (objDiv)
+                        setTimeout(function () {
+                            objDiv.scrollTop = objDiv.scrollHeight;
+                        }, 0)
+                    this.qText = "";
+                } catch (e) {
+                    console.warn(e);
+                } finally {
+                    setTimeout(() => {
+                        this.isLoading = false;
+                    }, 2000)
+
+                }
+
+            },
+            updateStatus: async function () {
+                try {
+                    var d = await axios.get("/vcbr/status/");
+                    this.status=d.data.status;
+                    var inserted = false;
+                    d.data.chat.forEach(c => {
+
+                        if (this.chat.filter(cc => cc.id == c.id).length == 0) {
+                            this.chat.push(c);
+                            inserted = true;
+                        }
+                    });
+                    this.chat.forEach(cc => {
+                        if (d.data.chat.filter(c => cc.id == c.id).length == 0) {
+                            cc.isDeleted = true;
+                        }
+                    })
+                    this.chat.forEach(cc => {
+                        d.data.chat.forEach(c => {
+                            if (c.id == cc.id) {
+                                cc.answer = c.answer
+                            }
+                        });
+
+
+                    })
+
+                    this.chat = this.chat.filter(cc => {
+                        return !cc.isDeleted || cc.userid == user.id
+                    })
+
+                    if (inserted) {
+                        var objDiv1 = document.getElementById("chatBox");
+                        if (objDiv1)
+                            setTimeout(function () {
+                                objDiv1.scrollTop = objDiv1.scrollHeight;
+                            }, 0)
+                    }
+                    /////////////
+
+                    inserted = false;
+                    d.data.q.forEach(c => {
+
+                        if (this.q.filter(cc => cc.id == c.id).length == 0) {
+                            this.q.push(c);
+                            inserted = true;
+                        }
+                    });
+                    this.q.forEach(cc => {
+                        if (d.data.q.filter(c => cc.id == c.id).length == 0) {
+                            cc.isDeleted = true;
+                        }
+                    })
+                    this.q = this.q.filter(cc => {
+                        return !cc.isDeleted || cc.userid == user.id
+                    })
+                    if (inserted) {
+                        var objDiv2 = document.getElementById("qBox");
+                        console.log("objDiv2", objDiv2)
+                        if (objDiv2)
+                            setTimeout(function () {
+                                objDiv2.scrollTop = objDiv2.scrollHeight;
+                            }, 10)
+                    }
+                    ////////////
+                    this.vote = d.data.vote
+                    /////
+                }
+                catch (e){
+                    console.warn(e);
+                }
+
+                setTimeout(() => {
+                    this.updateStatus();
+                }, 20 * 1000)
+            }
         },
-        updateStatus:async function(){
-            var d=await axios.get("/vcbr/status/");
+        watch: {
+            status:function (val){
+                if(!val.q)
+                    this.isQActive=false
 
-            var inserted=false;
-            d.data.chat.forEach(c=>{
-
-                if(this.chat.filter(cc=>cc.id==c.id).length==0) {
-                    this.chat.push(c);
-                    inserted=true;
-                }
-            });
-            this.chat.forEach(cc=>{
-                if(d.data.chat.filter(c=>cc.id==c.id).length==0)
-                {
-                    cc.isDeleted=true;
-                }
-            })
-            this.chat= this.chat.filter(cc=>{return !cc.isDeleted || cc.userid==user.id})
-
-            if(inserted) {
+                    },
+            isQActive: function (val) {
                 var objDiv1 = document.getElementById("chatBox");
                 if (objDiv1)
                     setTimeout(function () {
                         objDiv1.scrollTop = objDiv1.scrollHeight;
                     }, 0)
-            }
-            /////////////
-
-            inserted=false;
-            d.data.q.forEach(c=>{
-
-                if(this.q.filter(cc=>cc.id==c.id).length==0) {
-                    this.q.push(c);
-                    inserted=true;
-                }
-            });
-            this.q.forEach(cc=>{
-                if(d.data.q.filter(c=>cc.id==c.id).length==0)
-                {
-                    cc.isDeleted=true;
-                }
-            })
-            this.q= this.q.filter(cc=>{return !cc.isDeleted || cc.userid==user.id})
-            if(inserted)
-            {
                 var objDiv2 = document.getElementById("qBox");
-                console.log("objDiv2", objDiv2)
                 if (objDiv2)
                     setTimeout(function () {
-                         objDiv2.scrollTop = objDiv2.scrollHeight;
-                    }, 10)
+                        objDiv2.scrollTop = objDiv2.scrollHeight;
+                    }, 0)
             }
-            ////////////
-
-            setTimeout(()=>{
-               this.updateStatus();
-            }, 20*1000)
+        },
+        mounted: function () {
+            document.getElementById("chatInput").addEventListener("keyup", (e) => {
+                if (e.code == "Enter")
+                    this.chatSend();
+            })
+            document.getElementById("qInput").addEventListener("keyup", (e) => {
+                if (e.code == "Enter")
+                    this.qSend();
+            })
+            this.updateStatus();
         }
-    },
-    watch:{
-        isQActive:function(val){
-            var objDiv1 = document.getElementById("chatBox");
-            if (objDiv1)
-                setTimeout(function () {
-                    objDiv1.scrollTop = objDiv1.scrollHeight;
-                }, 0)
-            var objDiv2 = document.getElementById("qBox");
-            if (objDiv2)
-                setTimeout(function () {
-                    objDiv2.scrollTop = objDiv2.scrollHeight;
-                }, 0)
-        }
-    },
-    mounted:function (){
-        console.log("isWorked");
-        document.getElementById("chatInput").addEventListener("keyup", (e)=>{
-            if(e.code=="Enter")
-                this.chatSend();
-        })
-        document.getElementById("qInput").addEventListener("keyup", (e)=>{
-            if(e.code=="Enter")
-                this.qSend();
-        })
-        this.updateStatus();
-    }
-});
-document.querySelector(".up").addEventListener("click",()=>{
-    //document.body.scrollTop = document.documentElement.scrollTop = 0;
-    window.scrollTo({top: 0, behavior: 'smooth'});
-})
+    });
+    document.querySelector(".up").addEventListener("click", () => {
+        //document.body.scrollTop = document.documentElement.scrollTop = 0;
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    })
 
 
-    var observer = new IntersectionObserver((entries, observer)=>
-        {if(entries[0].isIntersecting)
+    var observer = new IntersectionObserver((entries, observer) => {
+        if (entries[0].isIntersecting)
             document.querySelector('.up').classList.add('hidden')
         else
             document.querySelector('.up').classList.remove('hidden')
-        }, {root: null, rootMargin: '10px', threshold: [0.0, 0.0]});
+    }, {root: null, rootMargin: '10px', threshold: [0.0, 0.0]});
     observer.observe(document.querySelector('.headerBox'));
 
 })();
 
-async function logout(){
-    var dt=await axios.get("/api/logout");
-    if(dt.data.success)
+async function logout() {
+    var dt = await axios.get("/api/logout");
+    if (dt.data.success)
         window.location.reload();
 }
-function scrollToElement(elemId){
-    var elem=document.getElementById(elemId);
-    scrollToSmoothly(elem.offsetTop,600);
+
+function scrollToElement(elemId) {
+    var elem = document.getElementById(elemId);
+    scrollToSmoothly(elem.offsetTop, 600);
 }
+
 function scrollToSmoothly(pos, time) {
     var currentPos = window.pageYOffset;
     var start = null;
-    if(time == null) time = 500;
+    if (time == null) time = 500;
     pos = +pos, time = +time;
     window.requestAnimationFrame(function step(currentTime) {
         start = !start ? currentTime : start;

@@ -37,7 +37,17 @@ router.get("/vcbr/status", async (req, res)=>{
   if(count<0)
     q=q.slice(count);
 
-  res.json({chat, q});
+  let vote=await req.knex.select("*").from("t_vote").where({isDeleted:false, isactive:true}).orderBy("id");
+
+  for(let item of vote){
+    item.answers=await( req.knex.select("*").from("t_voteanswers").where({voteid:item.id, isDeleted:false}).orderBy("id"));
+    let total=0;
+    item.answers.forEach(a=>{total+=a.count});
+    item.total=total;
+  }
+  let status=(await req.knex.select("*").from("t_status"))[0]
+
+  res.json({chat, q, vote, status});
 })
 
 module.exports = router;
