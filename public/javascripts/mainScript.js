@@ -25,14 +25,16 @@
                 return perc.toPrecision(4) + "%"
             },
             voiting:async function(item){
+
                 var store=localStorage.getItem("vote"+item.voteid);
                 if(store==item.id)
                     return
+
                 if(store) {
 
                     await axios.post("/api/reVote", {id: store});
                 }
-                await axios.post("/api/Vote", {id: store});
+                await axios.post("/api/Vote", {id: item.id});
                 localStorage.setItem("vote"+item.voteid, item.id);
                 this.vote=this.vote.filter(v=>{return true});
 
