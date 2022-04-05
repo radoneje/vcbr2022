@@ -812,14 +812,46 @@ body {
 .spk .initial{
   display:none;
 }
+.adminBottom{
+  height:~"calc(100vh - 127px)"
+}
 .spk .userIO{
   display:flex;
   gap:0.5em;
   justify-content: flex-start;
   align-items: center;
 }
-
-
+.buttonGroup{
+  display: flex;
+  gap:4px;
+  font-size:12px;
+}
+.button{
+  cursor:pointer;
+  padding:4px 12px;
+  text-align:center;
+  min-width:64px;
+  width:max-content;
+  background:#0088BB;
+  color:#FFFFFF;
+  opacity:.8
+}
+.button.red{
+  background: #8b0808;
+  color:#FFFFFF
+}
+.button:hover{
+  opacity:1;
+}
+.userSect{
+  font-size: 8px;
+  line-height: 10px;
+}
+.userCode{
+  font-size:14px;
+  color:#555555;
+  padding:4px 8px;
+}
 @media screen  and (max-width:1440px){
   .subTitle {
     top: 15%;

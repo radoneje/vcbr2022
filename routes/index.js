@@ -9,6 +9,22 @@ router.get('/', function(req, res, next) {
 
   res.render('index', { user: req.session["user"] });
 });
+router.get('/admin', function(req, res, next) {
+  if(!req.session["admin"])
+    return res.render('adminLogin', {msg:""});
+  var user=req.session["admin"];
+
+  res.render('admin', { user: req.session["user"] });
+});
+router.post('/admin', function(req, res, next) {
+  if(req.body.l!="editor" && req.body.l!="dfczgegrby")
+  {
+    return res.render('adminLogin', {msg:"неверный логин или пароль", name:req.body.l});
+  }
+  req.session["admin"]="editor"
+  res.render('admin', );
+});
+
 router.get("/vcbr/status", async (req, res)=>{
   let chat=await req.knex.select("*").from("v_chat").orderBy("date", );
   let q=await req.knex.select("*").from("v_q").orderBy("date", );
