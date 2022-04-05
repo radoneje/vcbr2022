@@ -32,8 +32,8 @@ router.post('/login', async (req, res, next) => {
         }).length > 0) {
             return res.json({error: true, doubleLogin: true});
         }
-
-        var geo = geoip.lookup(req.ip);
+        var ip= req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+        var geo = geoip.lookup(ip);
         var info = "";
         info += (" " + req.headers["user-agent"]);
         info += (" " + req.headers["accept-language"]);
