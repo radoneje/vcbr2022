@@ -33,6 +33,13 @@ html(lang="ru")
     <meta name="robots" content="noindex" />
 
     link(rel='stylesheet', href='/stylesheets/style.css')
+    script.
+      try{
+        eval("(()=>{console.log('ES6');})()")
+      }
+      catch(e){
+        document.location.href="badbrowser.html"
+      }
     script(src="/javascripts/axios.js")
   body
     block content
