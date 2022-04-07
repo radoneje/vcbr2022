@@ -5,8 +5,7 @@ const fs = require('fs')
 
 var end=moment(new Date('2022-04-12T06:30:00Z'))
 
-var x = dayjs()
-var y = dayjs()
+
 function pad(num, size) {
     num = num.toString();
     while (num.length < size) num = "0" + num;
