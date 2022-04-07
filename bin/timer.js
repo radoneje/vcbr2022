@@ -12,10 +12,11 @@ function pad(num, size) {
     return num;
 }
 async function setTime(){
-    var start=moment(new Date()).unix();
+    var start=moment()
 
     var dur=moment.duration(end-start);
-    var d=dur.hours();
+    var d=dur.days();
+
     if(d>5)
         d=d+ " дней";
     if(d==4 || d==3 || d==2 )
