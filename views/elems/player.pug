@@ -52,8 +52,8 @@
         .playerRBottom(v-show="isQActive" style="display:none" )
             .qWr#qBox(v-show="status.q")
                 .qItem(v-for="item in q" v-if="q.length>0")
-                    .qItemUser {{item.f}} {{item.i}}
-                    .qItemDepartment {{item.short}}
+                    .qItemUser {{item.f}} {{item.i}},&#x20;
+                        span.qItemDepartment {{item.short}}
                     .qItemText  {{item.text}}
                     .qItemTime {{moment(item.date).format("HH:mm")}}
 
@@ -70,8 +70,9 @@
             .qWr#chatBox
 
                     .qItem(v-for="item in chat" v-if="chat.length>0")
-                        .qItemUser {{item.f}} {{item.i}}
-                        .qItemDepartment {{item.short}}
+                        .qItemUser {{item.f}} {{item.i}},&#x20;
+                            span.qItemDepartment {{item.short}}
+
                         .qItemText  {{item.text}}
                         .qItemText(v-if="item.answer && item.answer.length>0")
                             .qItemTextAnswTitle(style="font-weight: bold;") Ответ:
