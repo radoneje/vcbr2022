@@ -17,24 +17,29 @@ dayjs.extend(relativeTime)
 
 var end=moment(new Date('2022-04-12T06:30:00Z'))
 
-
-
-
+var x = dayjs()
+var y = dayjs()
+function pad(num, size) {
+    num = num.toString();
+    while (num.length < size) num = "0" + num;
+    return num;
+}
 async function setTime(){
     var start=moment(new Date()).unix();
+    console.log(new Date())
+    var dur=moment.duration(end-start);
+    var d=dur.hours();
+    if(d>5)
+        d=d+ " дней";
+    if(d==4 || d==3 || d==2 )
+        d=d+ " дня";
+    if(d==1 )
+        d=d+ " дeнь";
+    if(d==0)
+        d="";
 
-    var mom=moment.utc(start.diff(end));
-    var h=mom.format("d");
-    if(h>5)
-        h=h+ " дней";
-    if(h==4 || h==3 || h==2 )
-        h=h+ " дня";
-    if(h==1 )
-        h=h+ " дeнь";
-    if(h==0)
-        h="";
-
-    var text=(h+ " " +mom.format("HH:mm:ss"));
+    var text=(d+ " " +pad(dur.hours(),2)+":"+pad(dur.minutes(),2)+":"+pad(dur.seconds(),2));
+    console.log(text)
     fs.writeFileSync('/tmp/dateBuf.txt', text)
     fs.renameSync('/tmp/dateBuf.txt', '/tmp/date.txt')
     setTimeout(setTime,500);
