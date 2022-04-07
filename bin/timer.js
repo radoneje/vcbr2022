@@ -1,19 +1,7 @@
 const humanizeDuration = require("humanize-duration");
 const moment = require("moment");
 const fs = require('fs')
-var dayjs = require('dayjs')
-require('dayjs/locale/ru')
 
-dayjs.extend(require('dayjs/plugin/utc'))
-dayjs.extend(require('dayjs/plugin/timezone'))
-
-dayjs.tz.setDefault("Europe/Moscow")
-var relativeTime = require('dayjs/plugin/relativeTime')
-
-//require('dayjs/locale/ru')
-var duration = require('dayjs/plugin/duration')
-dayjs.extend(duration)
-dayjs.extend(relativeTime)
 
 var end=moment(new Date('2022-04-12T06:30:00Z'))
 
