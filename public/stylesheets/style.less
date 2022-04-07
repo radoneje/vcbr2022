@@ -807,11 +807,20 @@ body {
   width:100%;
 }
 .vjs-big-play-button{
-  margin-top: -0.81666em !important;
-  margin-left: -0.81666em !important;
+  width:88px !important;
+  height:88px !important;
+ // margin-top: -44px  !important;
+  top:~"calc(50% - 44px) !important";
+  left:~"calc(50% - 22px)  !important";
+  margin-left:0  !important;
   border-radius:50% !important;
   height: 1.63332em !important;
   width: 1.63332em !important;
+  background:rgba(255, 255, 255, 0.32)  !important;
+  border-color:transparent  !important;
+}
+.vjs-big-play-button:hover{
+  background:rgba(255, 255, 255, 0.5)  !important;
 }
 .progBtnIcon{
   display:none;
