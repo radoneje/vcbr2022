@@ -7,9 +7,9 @@ block content
                 .lBox
                     .lBoxTitle Регистрация
                     .lBoxItem
-                        input.lBoxInput#f(type="text" placeholder="Фамилия" )
+                        input.lBoxInput#f(type="text" placeholder="Фамилия"  maxlength="600" onkeyup="clearError();this.classList.remove('error')")
                     .lBoxItem
-                        input.lBoxInput#i(type="text" placeholder="Имя")
+                        input.lBoxInput#i(type="text" placeholder="Имя" maxlength="600" onkeyup="clearError();this.classList.remove('error')")
                     .lBoxItem
                         .lBoxInput#lDepartBox(onclick="document.getElementById('lDepartWr').classList.remove('hidden')" onkeyup="")
                             #lDepartTitle
@@ -20,7 +20,7 @@ block content
                                 </svg>
                             #lDepartWr.hidden
                     .lBoxItem
-                        input.lBoxInput#code(type="text" placeholder="Код")
+                        input.lBoxInput#code(type="text" placeholder="Код" maxlength="600" onkeyup="clearError();this.classList.remove('error')")
                     .lBoxItem
                         #lBoxISubmit(onclick="login(this)")
                             .lBoxISubmitTitle Войти
@@ -49,7 +49,11 @@ block content
                     elem.innerHTML=d.title;
                     elem.setAttribute("department",d.id)
                     e.target.parentElement.classList.add('hidden');
+
+                    e.target.parentElement.parentElement.classList.remove('error');
+                    clearError();
                     document.getElementById("code").focus();
+
                 })
                 document.getElementById("lDepartWr").appendChild(item);
 
@@ -66,6 +70,11 @@ block content
 
 
         })();
+        function clearError(){
+            var e = document.getElementById('BoxError')
+            e.innerHTML = "";
+            e.classList.add("hidden")
+        }
         const login= async (ctrl)=>{
             const exit = () => {
                 setTimeout(() => {
@@ -73,11 +82,14 @@ block content
 
                 }, 1000)
             }
-            const setError=(elem)=>{
+
+            const setError=(elem, msg)=>{
                 elem.classList.add("error");
-
-
                 if(elem) elem.focus();
+
+                let e = document.getElementById('BoxError')
+                e.innerHTML = msg;
+                e.classList.remove("hidden")
             }
             if(ctrl.classList.contains("loading"))
                 return;
@@ -91,23 +103,28 @@ block content
             }
             document.querySelectorAll(".lBoxInput.error").forEach(e=>{e.classList.remove("error")})
             if (!arr.f.value || arr.f.value.length < 2) {
-                setError(arr.f)
+                setError(arr.f, "Ошибка: введите фамилию")
+
+
                 return exit();
             }
             if(!arr.i.value || arr.i.value.length<2)
             {
-                setError(arr.i)
+                setError(arr.i,"Ошибка: введите имя")
                 return exit();
             }
             if (!arr.code.value || arr.code.value.length !=5) {
-                setError(arr.code)
+                setError(arr.code, "Ошибка: некорректный код ")
                 return exit();
             }
             let dep = arr.dep.getAttribute("department")
             if (!arr.dep.getAttribute("department")) {
-                setError(arr.dep.parentNode)
+                setError(arr.dep.parentNode, "Ошибка: выберите подразделение")
                 return exit();
             }
+            let e = document.getElementById('BoxError')
+            e.innerHTML = "";
+            e.classList.add("hidden");
             try {
                 let r = await axios.post("/api/login", {
                     f: arr.f.value,

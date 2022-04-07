@@ -187,12 +187,12 @@
         },
         mounted: function () {
             document.getElementById("chatInput").addEventListener("keyup", (e) => {
-                if (e.code == "Enter")
-                    this.chatSend();
+               // if (e.code == "Enter")
+               //     this.chatSend();
             })
             document.getElementById("qInput").addEventListener("keyup", (e) => {
-                if (e.code == "Enter")
-                    this.qSend();
+               // if (e.code == "Enter")
+                //    this.qSend();
             })
             this.updateStatus();
         }

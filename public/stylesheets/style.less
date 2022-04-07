@@ -292,11 +292,11 @@ body {
   padding:24px;
 }
 .headerBox{
+  align-items: center;
   border-bottom:~"1px solid #FFFFFF88";
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
-  padding-bottom: 24px;
+  padding-bottom: 12px;
 }
 .menuBox{
   font-weight: 300;
@@ -316,7 +316,7 @@ body {
   opacity:.8;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 24px;
 }
 .lastMenuItem{
   opacity:1;
@@ -346,7 +346,7 @@ body {
 .house{
   position:relative;
   box-sizing: border-box;
-  margin-top: 64px;
+//  margin-top: 64px;
 }
 .house svg{
   width:100%;
@@ -701,7 +701,7 @@ body {
 
 }
 .qWr{
-  height: ~"calc(100% - 35px)";
+  height: ~"calc(100% - 72px)";
   overflow-y: scroll;
 }
 .qItem{
@@ -752,6 +752,20 @@ body {
   line-height: 18px;
   flex: 90%;
 }
+.sendBox textarea{
+  border:none;
+  padding:8px 32px;
+  height:4em;
+  box-sizing: border-box;
+  font-size: 16px;
+  line-height: 18px;
+  flex: 90%;
+  resize:none;
+  margin-bottom: 8px;
+  font-family: 'Stem';
+  font-style: normal;
+  font-weight: 300;
+}
 .sendBox svg {
   width:15px;
   padding:0 16px;
@@ -769,7 +783,8 @@ body {
   font-size: 16px;
   line-height: 22px;
   /* identical to box height, or 138% */
-
+  font-size: 14px;
+  line-height: 18px;
 
   color: #555555;
 }
@@ -811,6 +826,9 @@ body {
 }
 .spk .initial{
   display:none;
+}
+.spk .break {
+  display:block;
 }
 .adminBottom{
   height:~"calc(100vh - 127px)"
@@ -1082,8 +1100,15 @@ color:#FFFFFF;
   .voteWr{
     padding:12px;
   }
+  .spkItem .progUserItemTitle {
+
+    font-size: 22px;
+    line-height: 28px;
+    margin-bottom: 8px;
+  }
 }
 @media screen  and (max-width:1100px){
+
   .iframeBox{
     top:50%;
   }
@@ -1124,6 +1149,9 @@ color:#FFFFFF;
 
 }
 @media screen  and (max-width:840px) {
+  .progUserTitle{
+    margin-top:12px;
+  }
   .menuBox{
     display:none
   }
@@ -1249,7 +1277,7 @@ color:#FFFFFF;
     line-height: 34px;
   }
   .prog .tower{
-    padding:0;
+    padding:0 12px;
   }
   .progCell{
     padding:16px;
@@ -1263,7 +1291,7 @@ color:#FFFFFF;
     padding:72px 0;
   }
   .quote .tower{
-    padding:0;
+    padding:0 12px;
   }
   .quoteImg{
     width:48px;
@@ -1279,7 +1307,7 @@ color:#FFFFFF;
     padding-top:80px;
   }
   .spk .tower{
-    padding:0;
+    padding:0 12px;
   }
   .spkRow{
     flex-direction: column;
@@ -1291,7 +1319,7 @@ color:#FFFFFF;
   }
   .spkItem .progUserItemPosition{
     font-size: 18px;
-    line-height: 28px;
+    line-height: 24px;
     margin-top:0px;
   }
   .spkItem .progUserPhoto img{
@@ -1375,6 +1403,15 @@ color:#FFFFFF;
     margin: 0 6px;
     padding: 6px 6px;
     border-radius: 4px;
+  }
+  .lBoxItem{
+    margin-top: 24px;
+  }
+  #BoxError {
+    margin-top: 24px;
+  }
+  .lSupportBox {
+    margin: 32px;
   }
 
 }
