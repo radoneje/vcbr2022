@@ -15,15 +15,15 @@ var duration = require('dayjs/plugin/duration')
 dayjs.extend(duration)
 dayjs.extend(relativeTime)
 
-var start=moment(new Date('2022-04-12T06:30:00Z'))
+var end=moment(new Date('2022-04-12T06:30:00Z'))
 
-var x = dayjs()
-var y = dayjs()
+
+
 
 async function setTime(){
-    var end=moment(new Date()).unix();
+    var start=moment(new Date()).unix();
 
-    var mom=moment.utc(moment().diff(end));
+    var mom=moment.utc(start.diff(end));
     var h=mom.format("d");
     if(h>5)
         h=h+ " дней";
