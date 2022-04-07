@@ -1,7 +1,7 @@
 var express = require('express');
 var moment = require('moment');
 var router = express.Router();
-var geoip = require('geoip-lite');
+//var geoip = require('geoip-lite');
 
 
 /* GET home page. */
@@ -33,12 +33,12 @@ router.post('/login', async (req, res, next) => {
             return res.json({error: true, doubleLogin: true});
         }
         var ip= req.headers['x-forwarded-for'] || req.socket.remoteAddress;
-        var geo = geoip.lookup(ip);
+      //  var geo = geoip.lookup(ip);
         var info = "";
         info += (" " + req.headers["user-agent"]);
         info += (" " + req.headers["accept-language"]);
-        info += (" Country: " + (geo ? geo.country : "Unknown"));
-        info += (" Region: " + (geo ? geo.region : "Unknown"));
+       // info += (" Country: " + (geo ? geo.country : "Unknown"));
+       // info += (" Region: " + (geo ? geo.region : "Unknown"));
 
 
         var r = await req.knex("t_logins").insert({
