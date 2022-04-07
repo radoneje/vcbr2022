@@ -13,7 +13,7 @@ function pad(num, size) {
 }
 async function setTime(){
     var start=moment(new Date()).unix();
-    console.log(new Date())
+
     var dur=moment.duration(end-start);
     var d=dur.hours();
     if(d>5)
@@ -26,7 +26,6 @@ async function setTime(){
         d="";
 
     var text=(d+ " " +pad(dur.hours(),2)+":"+pad(dur.minutes(),2)+":"+pad(dur.seconds(),2));
-    console.log(text)
     fs.writeFileSync('/tmp/dateBuf.txt', text)
     fs.renameSync('/tmp/dateBuf.txt', '/tmp/date.txt')
     setTimeout(setTime,500);
