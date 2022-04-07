@@ -8,11 +8,13 @@
   "dependencies": {
     "connect-pg-simple": "^7.0.0",
     "cookie-parser": "~1.4.4",
+    "dayjs": "^1.11.0",
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "express-session": "^1.17.2",
     "geoip-lite": "^1.4.4",
     "http-errors": "~1.6.3",
+    "humanize-duration": "^3.27.1",
     "knex": "^1.0.4",
     "less-middleware": "~2.2.1",
     "moment": "^2.29.1",
