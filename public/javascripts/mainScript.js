@@ -9,7 +9,8 @@
             chatText: [],
             isLoading: false,
             vote:[],
-            status:{}
+            status:{},
+            isLoaded:false
         },
         methods: {
 
@@ -91,7 +92,8 @@
             },
             updateStatus: async function () {
                 try {
-                    var d = await axios.get("/vcbr/status/");
+                    var d = await axios.get("https://front.sber.link/vcbr/status/");
+                    this.isLoaded=true;
                     this.status=d.data.status;
                     var inserted = false;
                     d.data.chat.forEach(c => {
