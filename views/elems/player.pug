@@ -1,4 +1,4 @@
-.playerWr#appv-bind:class="{opacity:isLoaded}"
+.playerWr#app(v-bind:class="{opacity:isLoaded}")
     .playerL(style="flex:66%")
         .playerLTop.lTop
             <svg width="128" height="32" viewBox="0 0 128 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -19,7 +19,8 @@
         .VideoBox
             .videoPlayer
                 .videoWrapper
-                    video#my-video(class="video-js vjs-big-play-centered" data-setup="{}" controls preload="auto" width="1024" height="720" poster="https://front.sber.link/vcbr/images/poster.png" playsinline)
+                    iframe(src="/api/iframe" border="0" width="1280" height="720")
+                    //video#my-video(class="video-js vjs-big-play-centered" data-setup="{}" controls preload="auto" width="1024" height="720" poster="https://front.sber.link/vcbr/images/poster.png" playsinline)
                         source( src="https://hls-fabrikanews.cdnvideo.ru/fabrikanews4/1ru/playlist.m3u8" type="application/x-mpegURL")
                     .voteWr(v-if="vote.length>0")
                         .voteTitle(v-bind:class="{left:vote[0].iscompl}") {{vote[0].title}}

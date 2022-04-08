@@ -247,6 +247,9 @@ router.get("/logs" , checkAdmin, async (req, res, next) => {
 
    return res.json({users:req.users, logs:r});
 });
+router.get("/iframe" , checkLogin, async (req, res, next) => {
+    return res.render("iframe");
+});
 
 
 
