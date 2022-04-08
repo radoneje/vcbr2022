@@ -84,10 +84,11 @@ app.use("/", (req, res, next) => {
 });
 app.use("/", (req, res, next) => {
     req.updateUser = function (user) {
+        console.log("updateUser", user)
         users = users.filter(u => {
             return u.id !== user.id
         });
-        users.push({id: user.id, time: moment().unix()});
+        users.push({id: user.id, time: moment().unix(), stage:1});
     };
     next();
 });

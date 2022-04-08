@@ -50,7 +50,7 @@ router.post('/login', async (req, res, next) => {
         await req.knex("t_users").update({deptid: dep}, "*").where({id: user.id});
         delete user.code;
         req.session["user"] = user;
-        req.updateUser(user.id)
+        req.updateUser(user)
 
         return res.json({success: true});
     }
