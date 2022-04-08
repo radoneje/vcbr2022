@@ -50,7 +50,7 @@
 
                     div Техподдержка
         .playerRBottom(v-show="isQActive" style="display:none" )
-            .qWr#qBox(v-show="status.q")
+            .qWr#qBox
                 .qItem(v-for="item in q" v-if="q.length>0")
                     .qItemUser {{item.f}} {{item.i}},&#x20;
                         span.qItemDepartment {{item.short}}
