@@ -19,7 +19,7 @@
         .VideoBox
             .videoPlayer
                 .videoWrapper
-                    video#my-video(class="video-js vjs-big-play-centered" data-setup="{}" controls preload="auto" width="1024" height="720" poster="/images/poster.png" playsinline)
+                    video#my-video(class="video-js vjs-big-play-centered" data-setup="{}" controls preload="auto" width="1024" height="720" poster="https://front.sber.link/vcbr/images/poster.png" playsinline)
                         source( src="https://hls-fabrikanews.cdnvideo.ru/fabrikanews4/1ru/playlist.m3u8" type="application/x-mpegURL")
                     .voteWr(v-if="vote.length>0")
                         .voteTitle(v-bind:class="{left:vote[0].iscompl}") {{vote[0].title}}
@@ -59,7 +59,7 @@
 
             .sendWr(v-show="status.q")
                 .sendBox
-                    textarea#qInput(placeholder="Напишите ваш вопрос..." v-model="qText" )
+                    textarea#qInput(placeholder="Напишите ваш вопрос..." v-model="qText"  )
                     //input#qInput(placeholder="Напишите ваш вопрос..." v-model="qText" )
                     <svg style="padding: 0.5em 12px;" v-on:click="qSend()" width="15px" height="15px" viewBox="0 0 15 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="svgSendBtn"><desc></desc> <defs></defs> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="Desktop-HD" transform="translate(-712.000000, -505.000000)" fill-rule="nonzero"><g id="ic-baseline-call-made" transform="translate(708.000000, 500.000000)"><g id="Icon"><polygon id="Icon-Shape" fill="#9A9A9A" points="9 5 9 7 15.59 7 4 18.59 5.41 20 17 8.41 17 15 19 15 19 5"></polygon> <rect id="Icon-Rectangle-path" fill-opacity="0" fill="#000000" x="0" y="0" width="24" height="24"></rect></g></g></g></g></svg>
                     .sendBoxLoader(v-if="isLoading")
