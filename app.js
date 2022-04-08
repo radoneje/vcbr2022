@@ -112,7 +112,7 @@ app.use(function (err, req, res, next) {
 });
 
 setInterval(() => {
-    var time = moment().unix() - 25;
+    var time = moment().unix() - 90;
     users = users.filter(u => {
         return u.time > time
     });
