@@ -173,7 +173,7 @@
                     console.warn(e)
                 }
                 setTimeout(() => {
-                    this.updateStatus();
+                    this.stat();
                 }, 60 * 1000);
             }
         },
