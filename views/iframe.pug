@@ -4,9 +4,9 @@ block head
 
   <link href="https://front.sber.link/vcbr/javascripts/video-js.css" rel="stylesheet" />
 block content
-
-  video#my-video(style="width:100%")(class="video-js vjs-big-play-centered" data-setup="{}" controls preload="auto" width="1024" height="720" poster="https://front.sber.link/vcbr/images/poster.png" playsinline)
-    source( src="https://hls-fabrikanews.cdnvideo.ru/fabrikanews4/1ru/playlist.m3u8" type="application/x-mpegURL")
+  .videoWrapper
+    video#my-video(style="width:100%")(class="video-js vjs-big-play-centered" data-setup="{}" controls preload="auto" width="1024" height="720" poster="https://front.sber.link/vcbr/images/poster.png" playsinline)
+      source( src="https://hls-fabrikanews.cdnvideo.ru/fabrikanews4/1ru/playlist.m3u8" type="application/x-mpegURL")
 
   script(src="https://front.sber.link/vcbr/javascripts/video.js")
 
