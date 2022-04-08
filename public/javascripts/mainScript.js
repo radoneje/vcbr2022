@@ -164,6 +164,17 @@
                 setTimeout(() => {
                     this.updateStatus();
                 }, 20 * 1000)
+            },
+            stat:async function(){
+                try {
+                    await axios.post("/api/stat");
+                }
+                catch(e){
+                    console.warn(e)
+                }
+                setTimeout(() => {
+                    this.updateStatus();
+                }, 60 * 1000);
             }
         },
         watch: {
@@ -195,6 +206,7 @@
                 //    this.qSend();
             })
             this.updateStatus();
+            this.stat();
         }
     });
     document.querySelector(".up").addEventListener("click", () => {
@@ -243,6 +255,15 @@ function scrollToSmoothly(pos, time) {
             window.scrollTo(0, pos);
         }
     });
+}
+function downloadFile(src, name){
+    console.log(src)
+    var link = document.createElement('a');
+    link.style.display="none"
+    link.href = src;
+    link.download = name;
+    link.dispatchEvent(new MouseEvent('click'));
+
 }
 
 

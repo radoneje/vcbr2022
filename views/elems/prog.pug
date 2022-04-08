@@ -2,7 +2,7 @@
     .tower
         .progTitleWr
             .progTitle ПРОГРАММА
-            .progBtn
+            .progBtn(onclick="downloadFile('/images/programm.pdf', 'programm.pdf')")
                 .progBtnText Скачать программу
                 .progBtnIcon
                     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -34,7 +34,7 @@
                         div Перерыв
 
 
-            .progCell(style="flex: 50%;")
+            .progCell.last(style="flex: 50%;")
                 .progTime 11:00 – 12:20
                 .progItemFormat Панельная дискуссия
                 .progItemTitle БОРЬБА С МОШЕННИЧЕСТВОМ <br class="mobileHidden">&nbsp;
@@ -56,7 +56,7 @@
                             include cofee
                             div Перерыв
         .progRow
-            .progCell(style="flex: 100%;")
+            .progCell.last(style="flex: 100%;")
                 .progTime 13:00 – 13:30
                 //.progItemFormat Открытие совещания
                 .progItemTitle ВЫСТУПЛЕНИЕ ПРЕДСЕДАТЕЛЯ БАНКА РОССИИ
@@ -89,7 +89,7 @@
                         .progItemTitle
                             include cofee
                             div Перерыв
-            .progCell(style="flex: 50%;")
+            .progCell.last(style="flex: 50%;")
                 .progTime 15:10 – 16:30
                 .progItemFormat Панельная дискуссия
                 .progItemTitle НОВЫЕ ВВОДНЫЕ <br>ДЛЯ РЫНКА ТРУДА: <br>ГОССЕКТОР / БИЗНЕС

@@ -14,7 +14,9 @@
             userCode: 0,
             votes: [],
             voteTitle: "",
-            status:{id:1,q:false}
+            status:{id:1,q:false},
+            logs:{users:[], logs:[]},
+            isLogShow:false,
         },
         methods: {
             changeStatus:async function(item){
@@ -229,6 +231,25 @@
             updateUsers: async function () {
                 this.users = (await axios.get("/api/users")).data;
                 console.log(this.users);
+            },
+            updateLogs:async function(){
+                var r= await axios.get("/api/logs");
+                this.logs=r.data;
+                document.getElementById("chart").innerHTML="";
+                var chart = anychart.line();
+                var data=[];
+                console.log(r.data.logs)
+                r.data.logs.forEach(v=>{
+                    data.push([v.date, v.count])
+                });
+                // set the data
+                chart.data(data);
+                // set chart title
+                chart.title("статистика");
+                // set the container element
+                chart.container("chart");
+                // initiate chart display
+                chart.draw();
             }
         },
         watch: {
@@ -237,6 +258,10 @@
                 if (val == 4) {
                     this.updateUsers();
                     this.userCode = (await axios.get("/api/newUserCode")).data;
+                }
+                if (val == 5) {
+                    this.updateLogs();
+
                 }
             }
         },

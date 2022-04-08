@@ -304,7 +304,7 @@ body {
   line-height: 23px;
   display: flex;
   justify-content: flex-end;
-  gap: 24px;
+ // gap: 24px;
   align-items: center;
 }
 .menuMobileBox{
@@ -316,15 +316,18 @@ body {
   opacity:.8;
   display: flex;
   align-items: center;
-  gap: 24px;
+ // gap: 24px;
+  margin-right:24px;
 }
 .lastMenuItem{
   opacity:1;
   cursor:normal;
+  margin-right:0px;
 }
 .menuItemTitle{
   opacity:.6;
   cursor:pointer;
+  margin-right:12px;
 }
 .LWr{
   display: flex;
@@ -396,10 +399,13 @@ body {
   color: rgba(255,255,255,0.8);
   display: flex;
   justify-content: center;
-  gap: 16px;
+ // gap: 16px;
 
 
   color: rgba(255, 255, 255, 0.8);
+}
+.dateItem{
+  margin-right:16px;
 }
 .houseBg{
   position:absolute;
@@ -455,13 +461,14 @@ body {
 .progRow{
   margin-top:40px;
   display:flex;
-  gap:40px;
+ // gap:40px;
 }
 .progCell{
   background: rgba(85, 85, 85, 0.04);
   border-radius: 32px;
   padding:40px;
   position:relative;
+  margin-right:40px;
 }
 .progTime{
   font-weight: 500;
@@ -503,12 +510,14 @@ body {
   display:flex;
   align-items: self-end;
   justify-content: flex-start;
-  gap:12px;
+ // gap:12px;
   align-items: center;
   margin-top: 12px;
   text-align:left;
 }
-.progUserPhoto{}
+.progUserPhoto{
+  margin-right:12px;
+}
 .progUserItemTitle{
   font-weight: 300;
   font-size: 20px;
@@ -835,11 +844,23 @@ body {
   cursor: pointer;
 }
 .progCell .userIO{
+  display:inline-block;
+  margin-left:.5em;
+
+}
+.userIO div{
+  display:inline-block;
+}
+.userI{
+  margin-right:.5em;
+}
+.progCell .initial{
   display:none;
 }
-.spk .initial{
-  display:none;
+.progCell.last{
+  margin-right: 0;
 }
+
 
 .adminBottom{
   height:~"calc(100vh - 127px)"
@@ -1015,6 +1036,12 @@ color:#FFFFFF;
 }
 .nab .progUserItemPosition{
   display:none;
+}
+.aNow{
+  font-size:28px;
+  line-height:32px;
+  color:#555555;
+  padding:28px;
 }
 @media screen  and (max-width:1440px){
   .subTitle {

@@ -50,8 +50,8 @@ router.post('/login', async (req, res, next) => {
         await req.knex("t_users").update({deptid: dep}, "*").where({id: user.id});
         delete user.code;
         req.session["user"] = user;
-        req.users=req.users.filter(u=>{return u.id!==user.id});
-        req.users.push({id: user.id, time: moment().unix()});
+        req.updateUser(user.id)
+
         return res.json({success: true});
     }
     res.json({error: true});
@@ -235,6 +235,18 @@ router.post("/changeStatus", checkAdmin, async (req, res, next) => {
     console.log(req.body, r[0]);
     res.json(r[0])
 })
+router.post("/stat", async (req, res, next) => {
+    if (!req.session["user"])
+        return res.sendStatus(401);
+    req.updateUser(req.session["user"]);
+    return res.json(true);
+});
+
+router.get("/logs" , checkAdmin, async (req, res, next) => {
+   var r= await req.knex.select("date", "count").from("t_log").orderBy("id","desc").limit(200);
+
+   return res.json({users:req.users, logs:r});
+});
 
 
 

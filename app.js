@@ -8,27 +8,27 @@ var moment = require('moment');
 
 var session = require('express-session');
 
-const config=require("./config.json")
+const config = require("./config.json")
 
 var knex = require('knex')({
-  client: 'pg',
-  version: '7.2',
-  connection:config.pgConnection,
-  pool: { min: 0, max: 40 }
+    client: 'pg',
+    version: '7.2',
+    connection: config.pgConnection,
+    pool: {min: 0, max: 40}
 });
 const pgSession = require('connect-pg-simple')(session);
 const pgStoreConfig = {conObject: config.pgConnection}
-var sess={
-  secret: (config.sha256Secret),
-  resave: false,
-  saveUninitialized: true,
-  cookie: {
-    maxAge: 10 * 24 * 60 * 60 * 1000,
-    // secure: true,
-    //httpOnly: true,
-    //sameSite: 'none',
-  }, // 10 days
-  store:new pgSession(pgStoreConfig),
+var sess = {
+    secret: (config.sha256Secret),
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        maxAge: 10 * 24 * 60 * 60 * 1000,
+        // secure: true,
+        //httpOnly: true,
+        //sameSite: 'none',
+    }, // 10 days
+    store: new pgSession(pgStoreConfig),
 };
 
 
@@ -43,42 +43,80 @@ app.set('view engine', 'pug');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(lessMiddleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session(sess));
 
-let users=[];
-app.use("/", (req,res, next)=>{req.knex=knex;next();});
-app.use("/", (req,res, next)=>{req.users=users;next();});
-app.use("/", (req,res, next)=>{req.clearUser=function(userid){users=users.filter(u=>{return u.id!=userid})};next();});
+let users = [];
+(async () => {
+    var r=await knex.select("*").from("t_log").orderBy("id", "desc");
+    if(r.length>0)
+        users=r[0].values;
+    await updateLogs();
+})();
+async function updateLogs(){
+    try{
+        await knex("t_log").insert({count:users.length,values:JSON.stringify(users)})
+    }
+    catch (e) {
+        console.warn(e)
+    }
+    setTimeout(updateLogs,5*60*1000)
+}
+app.use("/", (req, res, next) => {
+    req.knex = knex;
+    next();
+});
+app.use("/", (req, res, next) => {
+    req.users = users;
+    next();
+});
+app.use("/", (req, res, next) => {
+    req.clearUser = function (userid) {
+        users = users.filter(u => {
+            return u.id != userid
+        })
+    };
+    next();
+});
+app.use("/", (req, res, next) => {
+    req.updateUser = function (user) {
+        users = users.filter(u => {
+            return u.id !== user.id
+        });
+        users.push({id: user.id, time: moment().unix()});
+    };
+    next();
+});
 
 app.use('/', indexRouter);
 app.use('/api', apiRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
+app.use(function (req, res, next) {
+    next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+app.use(function (err, req, res, next) {
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error');
 });
 
-setInterval(()=>{
-  var time=moment().unix()-25;
-  users=users.filter(u=>{return u.time>time});
-  console.log(users.length)
-},30*1000)
+setInterval(() => {
+    var time = moment().unix() - 25;
+    users = users.filter(u => {
+        return u.time > time
+    });
+}, 90 * 1000)
 
-setTimeout(()=>{console.log(moment().unix())},1000);
+
 module.exports = app;
