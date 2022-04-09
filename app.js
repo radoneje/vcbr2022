@@ -84,7 +84,7 @@ app.use("/", (req, res, next) => {
 });
 app.use("/", (req, res, next) => {
     req.updateUser = function (user) {
-        console.log("updateUser", user)
+       // console.log("updateUser", user)
         users = users.filter(u => {
             return u.id !== user.id
         });
