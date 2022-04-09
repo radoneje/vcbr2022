@@ -185,8 +185,8 @@
         },
         watch: {
             status:function (val){
-                if(!val.q)
-                    this.isQActive=false
+              //  if(!val.q)
+               //     this.isQActive=false
 
                     },
             isQActive: function (val) {

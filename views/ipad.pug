@@ -1,0 +1,64 @@
+extends layout
+
+block head
+    link(rel='stylesheet', href='/stylesheets/style.css')
+
+block content
+    .tower#app
+        .adminBottom
+            .playerRBottom(style="height:100%;")
+                .qWr#qBox
+                    .qItem(v-if="q.length==0")
+                        .qItemText  пока нет вопросов
+                    .qItem(v-for="item in q" v-if="q.length>0")
+                        .qItemUser {{item.f}} {{item.i}}
+                        .qItemDepartment {{item.short}}
+                        .qItemText  {{item.text}}
+                        .qItemTime {{moment(item.date).format("HH:mm")}}
+    script(src="https://front.sber.link/vcbr/javascripts/vue.min.js")
+    script(src="https://front.sber.link/vcbr/javascripts/moment.min.js")
+    script.
+        var app = new Vue({
+            el: "#app",
+            data: {
+                q: []
+            },
+            methods: {
+                updateStatus: async function () {
+                    try {
+                        var d = await axios.get("/vcbr/status/");
+                       /* var inserted = false;
+                        d.data.q.forEach(c => {
+
+                            if (this.q.filter(cc => cc.id == c.id).length == 0) {
+                                this.q.push(c);
+                                inserted = true;
+                            }
+
+                        });
+                        this.q.forEach(cc => {
+                            if (d.data.q.filter(c => cc.id == c.id).length == 0) {
+                                cc.isDeleted = true;
+                            }
+                        })
+                        this.q = this.q.filter(cc => {
+                            return !cc.isDeleted
+                        });*/
+                        this.q = d.data.q.filter(cc => {
+                            return cc.isSpk
+                        });
+                    }
+                    catch (e){
+                        console.warn(e);
+                    }
+                    setTimeout(() => {
+                        this.updateStatus();
+                    }, 20 * 1000)
+                }
+            },
+            mounted: function () {
+                this.updateStatus();
+
+            }
+        })
+

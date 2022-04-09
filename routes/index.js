@@ -20,6 +20,12 @@ router.get('/admin', function(req, res, next) {
 
   res.render('admin', { user: req.session["user"] });
 });
+router.get('/ipad', function(req, res, next) {
+  res.render('ipad', );
+});
+router.get('/vote', function(req, res, next) {
+  res.render('vote', );
+})
 router.post('/admin', function(req, res, next) {
   if(req.body.l!="editor" && req.body.l!="dfczgegrby")
   {
