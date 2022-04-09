@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+var path = require('path');
+var fs = require('fs');
 
 /* GET home page. */
 router.get('/rest', function(req, res, next) {
@@ -56,8 +58,15 @@ router.get("/vcbr/status", async (req, res)=>{
     item.total=total;
   }
   let status=(await req.knex.select("*").from("t_status"))[0]
+  var timeout=20;
+  try {
+    var timeout=parseInt(fs.readFileSync(path.join(__dirname, '../updateTimeout.txt')))
+  }
+  catch(e){
+    console.warn(e)
+  }
 
-  res.json({chat, q, vote, status});
+  res.json({chat, q, vote, status, timeout});
 })
 
 module.exports = router;

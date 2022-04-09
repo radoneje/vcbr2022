@@ -239,7 +239,7 @@ router.post("/stat", async (req, res, next) => {
     if (!req.session["user"])
         return res.sendStatus(401);
     req.updateUser(req.session["user"]);
-    return res.json(true);
+    return res.json(60);
 });
 
 router.get("/logs" , checkAdmin, async (req, res, next) => {

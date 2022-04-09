@@ -10,7 +10,9 @@
             isLoading: false,
             vote:[],
             status:{},
-            isLoaded:false
+            isLoaded:false,
+            timeout:20,
+            logTimeout:60
         },
         methods: {
 
@@ -92,10 +94,13 @@
             },
             updateStatus: async function () {
                 try {
-                 //   var d = await axios.get("https://front.sber.link/vcbr/status/");
-                    var d = await axios.get("/vcbr/status/");
+                   var  d = await axios.get("https://front.sber.link/vcbr/status/");
+                    //var d = await axios.get("/vcbr/status/");
                     this.isLoaded=true;
                     this.status=d.data.status;
+                    var to=parseInt(d.data.timeout);
+                    if(Number.isInteger(to) && to>5 && to<300)
+                        this.timeout=to;
                     var inserted = false;
                     d.data.chat.forEach(c => {
 
@@ -153,7 +158,6 @@
                     })
                     if (inserted) {
                         var objDiv2 = document.getElementById("qBox");
-                        console.log("objDiv2", objDiv2)
                         if (objDiv2)
                             setTimeout(function () {
                                 objDiv2.scrollTop = objDiv2.scrollHeight;
@@ -166,21 +170,27 @@
                 catch (e){
                     console.warn(e);
                 }
-
+                console.log("setTimeout", this.timeout )
                 setTimeout(() => {
                     this.updateStatus();
-                }, 20 * 1000)
+                }, this.timeout * 1000)
             },
             stat:async function(){
                 try {
-                    await axios.post("/api/stat");
+
+                    var r=await axios.post("/api/stat");
+                    var to=parseInt(d.data.timeout);
+                    if(Number.isInteger(to) && to>5 && to<300)
+                        this.logTimeout=to;
+
                 }
                 catch(e){
                     console.warn(e)
                 }
+                console.log("setLogTimeout",this.logTimeout )
                 setTimeout(() => {
                     this.stat();
-                }, 60 * 1000);
+                }, this.logTimeout * 1000);
             }
         },
         watch: {
