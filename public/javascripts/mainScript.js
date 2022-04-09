@@ -2,7 +2,7 @@
     let app = new Vue({
         el: "#app",
         data: {
-            isQActive: false,
+            isQActive: true,
             q: [],
             chat: [],
             qText: "",
