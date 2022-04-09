@@ -57,6 +57,7 @@
                         span.qItemDepartment {{item.short}}
                     .qItemText  {{item.text}}
                     .qItemTime {{moment(item.date).format("HH:mm")}}
+                        .qItemTimeAdd(v-if="!item.isApproved") Вопрос на модерации
 
             .sendWr(v-show="status.q")
                 .sendBox

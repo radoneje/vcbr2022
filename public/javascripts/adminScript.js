@@ -19,6 +19,22 @@
             isLogShow:false,
         },
         methods: {
+            changeQApproved:async function(item){
+                item.isApproved=!item.isApproved;
+                var r =await axios.post("/api/changeQApproved", item);
+                this.q.forEach(q=>{
+                    if(q.id==item.id)
+                        item=r.data;
+                })
+            },
+            changeQSpk:async function(item){
+                item.isSpk=!item.isSpk;
+                var r =await axios.post("/api/changeQSpk", item);
+                this.q.forEach(q=>{
+                    if(q.id==item.id)
+                        item=r.data;
+                })
+            },
             changeStatus:async function(item){
                 var r =await axios.post("/api/changeStatus", item);
                 this.status=r.data;

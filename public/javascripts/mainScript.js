@@ -92,7 +92,8 @@
             },
             updateStatus: async function () {
                 try {
-                    var d = await axios.get("https://front.sber.link/vcbr/status/");
+                 //   var d = await axios.get("https://front.sber.link/vcbr/status/");
+                    var d = await axios.get("/vcbr/status/");
                     this.isLoaded=true;
                     this.status=d.data.status;
                     var inserted = false;
@@ -146,6 +147,9 @@
                     })
                     this.q = this.q.filter(cc => {
                         return !cc.isDeleted || cc.userid == user.id
+                    })
+                    this.q = this.q.filter(cc => {
+                        return cc.isApproved || cc.userid == user.id
                     })
                     if (inserted) {
                         var objDiv2 = document.getElementById("qBox");

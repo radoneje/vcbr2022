@@ -49,7 +49,10 @@ block content
                             .qItemText  {{item.text}}
                             .qItemTime {{moment(item.date).format("HH:mm")}}
                             .buttonGroup
-                                .button Принять
+                                .button(v-if="!item.isApproved" v-on:click="changeQApproved(item)") Принять
+                                .button.green(v-if="item.isApproved" v-on:click="changeQApproved(item)") Скрыть
+                                .button(v-if="!item.isSpk" v-on:click="changeQSpk(item)") Показать спикеру
+                                .button.green(v-if="item.isSpk" v-on:click="changeQSpk(item)") Удалить от спикера
                                 .button.red(v-on:click="deleteQ(item)") Удалить
 
                     .sendWr

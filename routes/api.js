@@ -251,6 +251,18 @@ router.get("/iframe" , checkLogin, async (req, res, next) => {
     return res.render("iframe");
 });
 
+router.post("/changeQApproved", checkAdmin, async (req, res, next) => {
+
+    let r= await req.knex("t_q").update({isApproved:req.body.isApproved},"*").where({id:req.body.id});
+    res.json(r[0])
+})
+router.post("/changeQSpk", checkAdmin, async (req, res, next) => {
+
+    let r= await req.knex("t_q").update({isSpk:req.body.isSpk},"*").where({id:req.body.id});
+    res.json(r[0])
+})
+
+
 
 
 
