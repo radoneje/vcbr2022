@@ -178,7 +178,8 @@
             stat:async function(){
                 try {
 
-                    var r=await axios.post("/api/stat");
+                    var d=await axios.post("/api/stat");
+
                     var to=parseInt(d.data.timeout);
                     if(Number.isInteger(to) && to>5 && to<300)
                         this.logTimeout=to;
