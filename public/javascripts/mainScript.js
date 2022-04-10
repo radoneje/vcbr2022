@@ -161,7 +161,7 @@
                         })
                     })
                         this.q = this.q.filter(cc => {
-                        return cc.isApproved || cc.userid == user.id
+                        return (cc.isApproved || cc.userid == user.id) && ! cc.isDeleted;
                     })
 
                     if (inserted) {
