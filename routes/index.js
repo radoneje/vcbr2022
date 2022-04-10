@@ -36,6 +36,9 @@ router.post('/admin', function(req, res, next) {
   req.session["admin"]="editor"
   res.render('admin', );
 });
+router.get('/vcbr/depatments', async (req, res, next) => {
+  res.json(await req.knex.select("*").from("t_departments").orderBy("id"));
+});
 
 router.get("/vcbr/status", async (req, res)=>{
   let chat=await req.knex.select("*").from("v_chat").orderBy("date", );
