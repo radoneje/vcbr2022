@@ -153,9 +153,17 @@
                     this.q = this.q.filter(cc => {
                         return !cc.isDeleted || cc.userid == user.id
                     })
-                    this.q = this.q.filter(cc => {
+                    this.q.forEach(q=>{
+                        d.data.q.forEach(c=>{
+                            if(q.id==c.id){
+                                q.isApproved=c.isApproved;
+                            }
+                        })
+                    })
+                        this.q = this.q.filter(cc => {
                         return cc.isApproved || cc.userid == user.id
                     })
+
                     if (inserted) {
                         var objDiv2 = document.getElementById("qBox");
                         if (objDiv2)
