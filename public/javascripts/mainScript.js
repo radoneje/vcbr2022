@@ -125,7 +125,7 @@
                     })
 
                     this.chat = this.chat.filter(cc => {
-                        return !cc.isDeleted || cc.userid == user.id
+                        return !cc.isDeleted && cc.userid == user.id
                     })
 
                     if (inserted) {
