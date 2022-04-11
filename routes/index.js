@@ -9,7 +9,7 @@ router.get('/rest', function(req, res, next) {
 res.json(req.users);
 });
 router.get('/test', function(req, res, next) {
-  res.json(req.users);
+  return res.render('test');
 });
 router.get('/', function(req, res, next) {
   if(!req.session["user"])
