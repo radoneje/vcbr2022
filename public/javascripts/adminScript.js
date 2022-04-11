@@ -185,65 +185,69 @@
 
             },
             updateStatus: async function () {
-                var d = await axios.get("/vcbr/status/");
+                try {
+                    var d = await axios.get("/vcbr/status/");
 
-                this.status=d.data.status;
-                var inserted = false;
-                var focused = false;
-                document.querySelectorAll(".qItem textarea").forEach(e => {
-                    if (document.activeElement == e)
-                        focused = true;
-                })
-                if (!focused) {
-                    d.data.chat.forEach(c => {
+                    this.status = d.data.status;
+                    var inserted = false;
+                    var focused = false;
+                    document.querySelectorAll(".qItem textarea").forEach(e => {
+                        if (document.activeElement == e)
+                            focused = true;
+                    })
+                    if (!focused) {
+                        d.data.chat.forEach(c => {
 
-                        if (this.chat.filter(cc => cc.id == c.id).length == 0) {
-                            this.chat.push(c);
+                            if (this.chat.filter(cc => cc.id == c.id).length == 0) {
+                                this.chat.push(c);
+                                inserted = true;
+                            }
+                        });
+                        this.chat.forEach(cc => {
+                            if (d.data.chat.filter(c => cc.id == c.id).length == 0) {
+                                cc.isDeleted = true;
+                            }
+                        })
+                        this.chat = this.chat.filter(cc => {
+                            return !cc.isDeleted
+                        })
+                    }
+
+
+                    /////////////
+
+                    inserted = false;
+                    d.data.q.forEach(c => {
+
+                        if (this.q.filter(cc => cc.id == c.id).length == 0) {
+                            this.q.push(c);
                             inserted = true;
                         }
                     });
-                    this.chat.forEach(cc => {
-                        if (d.data.chat.filter(c => cc.id == c.id).length == 0) {
+                    this.q.forEach(cc => {
+                        if (d.data.q.filter(c => cc.id == c.id).length == 0) {
                             cc.isDeleted = true;
                         }
                     })
-                    this.chat = this.chat.filter(cc => {
+                    this.q = this.q.filter(cc => {
                         return !cc.isDeleted
                     })
+
+                    focused = false;
+                    document.querySelectorAll(".qVoteAnswerWr input").forEach(e => {
+                        if (document.activeElement == e)
+                            focused = true;
+                    })
+                    if (!focused)
+                        this.votes = (await axios.get("/api/votes")).data;
+                    ////////////
+                } catch(e){
+                    console.warn(e);
                 }
-
-
-                /////////////
-
-                inserted = false;
-                d.data.q.forEach(c => {
-
-                    if (this.q.filter(cc => cc.id == c.id).length == 0) {
-                        this.q.push(c);
-                        inserted = true;
-                    }
-                });
-                this.q.forEach(cc => {
-                    if (d.data.q.filter(c => cc.id == c.id).length == 0) {
-                        cc.isDeleted = true;
-                    }
-                })
-                this.q = this.q.filter(cc => {
-                    return !cc.isDeleted
-                })
-
-                 focused = false;
-                document.querySelectorAll(".qVoteAnswerWr input").forEach(e => {
-                    if (document.activeElement == e)
-                        focused = true;
-                })
-                if (!focused)
-                    this.votes = (await axios.get("/api/votes")).data;
-                ////////////
 
                 setTimeout(() => {
                     this.updateStatus();
-                }, 20 * 1000)
+                }, 5 * 1000)
             },
             updateUsers: async function () {
                 this.users = (await axios.get("/api/users")).data;
