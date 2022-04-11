@@ -254,8 +254,8 @@
                 document.getElementById("chart").innerHTML="";
                 var chart = anychart.line();
                 var data=[];
-                console.log(r.data.logs)
-                r.data.logs.forEach(v=>{
+
+                r.data.logs.reverse().forEach(v=>{
                     data.push([v.date, v.count])
                 });
                 // set the data
