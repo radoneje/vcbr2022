@@ -6,7 +6,13 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/depatments', async (req, res, next) => {
-    res.json(await req.knex.select("*").from("t_departments").orderBy("id"));
+    res.json(await req.knex.select("*").from("t_departments").orderBy("sort"));
+});
+router.post('/depatments', checkAdmin,async (req, res, next) => {
+    var id=req.body.id;
+    delete req.body.id
+    await req.knex("t_departments").update(req.body).where({id:id})
+    res.json(await req.knex.select("*").from("t_departments").orderBy("sort"));
 });
 router.post('/login', async (req, res, next) => {
     let code = parseInt(req.body.code);

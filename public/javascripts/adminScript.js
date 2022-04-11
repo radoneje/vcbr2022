@@ -17,6 +17,7 @@
             status:{id:1,q:false},
             logs:{users:[], logs:[]},
             isLogShow:false,
+            dept:[]
         },
         methods: {
             changeQApproved:async function(item){
@@ -248,6 +249,14 @@
                 this.users = (await axios.get("/api/users")).data;
                 console.log(this.users);
             },
+            updateDept:async function(){
+                var r= await axios.get("/api/depatments");
+                this.dept=r.data;
+            },
+            changeDept:async function(item){
+                var r= await axios.post("/api/depatments", item);
+
+            },
             updateLogs:async function(){
                 var r= await axios.get("/api/logs");
                 this.logs=r.data;
@@ -277,6 +286,10 @@
                 }
                 if (val == 5) {
                     this.updateLogs();
+
+                }
+                if (val == 6) {
+                    this.updateDept();
 
                 }
             }
