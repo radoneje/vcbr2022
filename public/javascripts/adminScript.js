@@ -256,7 +256,7 @@
                 var data=[];
 
                 r.data.logs.reverse().forEach(v=>{
-                    data.push([v.date, v.count])
+                    data.push([moment(v.date).format("HH:mm"), v.count])
                 });
                 // set the data
                 chart.data(data);
