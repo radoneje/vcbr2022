@@ -43,7 +43,7 @@ router.post('/admin', function(req, res, next) {
   res.render('admin', );
 });
 router.get('/vcbr/depatments', async (req, res, next) => {
-  res.json(await req.knex.select("*").from("t_departments").orderBy("id"));
+  res.json(await req.knex.select("*").from("t_departments").orderBy("title"));
 });
 
 router.get("/vcbr/status", async (req, res)=>{
