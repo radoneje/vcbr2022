@@ -11,6 +11,9 @@ res.json(req.users);
 router.get('/test', function(req, res, next) {
   return res.render('test');
 });
+router.get('/qa', function(req, res, next) {
+  return res.render('qa');
+});
 router.get('/', function(req, res, next) {
   if(!req.session["user"])
     return res.render('login');
