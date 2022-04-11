@@ -17,6 +17,36 @@ block content
                         .qItemTime {{moment(item.date).format("HH:mm")}}
     script(src="https://front.sber.link/vcbr/javascripts/vue.min.js")
     script(src="https://front.sber.link/vcbr/javascripts/moment.min.js")
+    style.
+        body{width:1920px;height:1280px;overflow: hidden; background: black;}
+        .playerRBottom{background: black;}
+        .qItem{
+            COLOR: WHITE;
+                BACKGROUND: rgba(255, 255, 255, .2);
+            padding:20px;
+            font-size:40px;
+            line-height:50px;
+        }
+        .qItemUser{
+            font-size: 40px;
+            line-height: 50px;
+        }
+        .qItemDepartment{
+            font-size: 30px;
+            line-height:40px;
+        color:white;
+        }
+        .qItemText{
+            font-size:40px;
+            line-height: 50px;
+            color:white;
+            margin-top: 40px;
+        }
+        .tower{
+            width:1800px;
+            max-width:1920px
+        }
+
     script.
         var app = new Vue({
             el: "#app",
