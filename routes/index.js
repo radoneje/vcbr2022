@@ -47,7 +47,7 @@ router.get('/vcbr/depatments2', async (req, res, next) => {
 });
 
 router.get("/vcbr/status", async (req, res)=>{
-  let chat=await req.knex.select("*").from("v_chat").orderBy("date", );
+/*  let chat=await req.knex.select("*").from("v_chat").orderBy("date", );
   let q=await req.knex.select("*").from("v_q").orderBy("date", );
 
   let count=50-chat.length;
@@ -74,8 +74,8 @@ router.get("/vcbr/status", async (req, res)=>{
   catch(e){
     console.warn(e)
   }
-
-  res.json({chat, q, vote, status, timeout});
+*/
+  res.json({chat:[], q:[], vote:[], status:null, timeout:300});
 })
 
 module.exports = router;
