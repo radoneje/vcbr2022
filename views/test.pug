@@ -7,7 +7,7 @@ block content
   .box(style="width:calc(1280px / 2); height:calc(720px / 2)")
     .videoWrapper
       video#my-video(style="width:100%" class="video-js vjs-big-play-centered" data-setup="{}" controls preload="auto" width="1024" height="720" poster="https://front.sber.link/vcbr/images/poster.png" playsinline)
-        source( src="https://hls-fabrikanews.cdnvideo.ru/fabrikanews4/2ru/playlist.m3u8" type="application/x-mpegURL")
+        source( src="https://hls-fabrikanews.cdnvideo.ru/fabrikanews4/1ru/playlist.m3u8" type="application/x-mpegURL")
 
   script(src="https://front.sber.link/vcbr/javascripts/video.js")
   script.
@@ -17,7 +17,7 @@ block content
       setTimeout(() => {
         player.src({
           type: 'application/x-mpegURL',
-          src: 'https://hls-fabrikanews.cdnvideo.ru/fabrikanews4/2ru/playlist.m3u8'
+          src: 'https://hls-fabrikanews.cdnvideo.ru/fabrikanews4/1ru/playlist.m3u8'
         });
         player.play();
       }, 1000)
