@@ -24,7 +24,7 @@
             getPercent:function(total, count){
                 if (total == 0)
                     return "0%"
-                var perc = (parseFloat(count) / parseFloat(total) * 100);
+                       var perc = (parseFloat(count) / parseFloat(total) * 100);
                 return perc.toPrecision(4) + "%"
             },
             voiting:async function(item){
@@ -226,10 +226,10 @@
                // if (e.code == "Enter")
                //     this.chatSend();
             })
-            document.getElementById("qInput").addEventListener("keyup", (e) => {
+           // document.getElementById("qInput").addEventListener("keyup", (e) => {
                // if (e.code == "Enter")
                 //    this.qSend();
-            })
+           // })
             this.updateStatus();
             this.stat();
         }
