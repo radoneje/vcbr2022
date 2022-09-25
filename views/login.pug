@@ -126,7 +126,7 @@ block content
             e.innerHTML = "";
             e.classList.add("hidden");
             try {
-                let r = await axios.post("/api/login", {
+                let r = await axios.post("api/login", {
                     f: arr.f.value,
                     i: arr.i.value,
                     code: arr.code.value,
