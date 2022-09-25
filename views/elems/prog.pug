@@ -11,7 +11,100 @@
                     <path d="M16.0008 19.7508C15.9023 19.7513 15.8046 19.7321 15.7136 19.6943C15.6226 19.6565 15.5401 19.6009 15.4708 19.5308L11.4708 15.5308C11.3383 15.3886 11.2662 15.2006 11.2696 15.0063C11.2731 14.812 11.3518 14.6266 11.4892 14.4892C11.6266 14.3518 11.812 14.2731 12.0063 14.2696C12.2006 14.2662 12.3886 14.3383 12.5308 14.4708L16.0008 17.9408L19.4708 14.4708C19.613 14.3383 19.801 14.2662 19.9953 14.2696C20.1896 14.2731 20.375 14.3518 20.5124 14.4892C20.6499 14.6266 20.7286 14.812 20.732 15.0063C20.7354 15.2006 20.6633 15.3886 20.5308 15.5308L16.5308 19.5308C16.4616 19.6009 16.379 19.6565 16.288 19.6943C16.197 19.7321 16.0994 19.7513 16.0008 19.7508Z" fill="white"/>
                     <path d="M16 19.75C15.8019 19.7474 15.6126 19.6676 15.4725 19.5275C15.3324 19.3874 15.2526 19.1981 15.25 19V8C15.25 7.80109 15.329 7.61032 15.4697 7.46967C15.6103 7.32902 15.8011 7.25 16 7.25C16.1989 7.25 16.3897 7.32902 16.5303 7.46967C16.671 7.61032 16.75 7.80109 16.75 8V19C16.7474 19.1981 16.6676 19.3874 16.5275 19.5275C16.3874 19.6676 16.1981 19.7474 16 19.75Z" fill="white"/>
                     </svg>
+        ////////
         .progRow
+                .progCell.last(style="flex: 100%;")
+                    .progTime 9:30 – 10:00
+                    .progItemFormat Открытие совещания
+                    .progItemTitle ВЫСТУПЛЕНИЕ ПРЕДСЕДАТЕЛЯ БАНКА РОССИИ Э.С. НАБИУЛЛИНОЙ
+                    .progUserWr.nab
+                        include spk/nabiulina
+                    .progBottomPlaceholder
+                    .progItemBottom
+                        .progTime 10:00 – 10:15
+                        .progItemTitle
+                            include cofee
+                            div Перерыв
+        .progRow
+            .progCell.last(style="flex: 100%;")
+                .progTime 10:15 – 11:40
+                    .progItemFormat Панельная дискуссия
+                    .progItemTitle РОЛЬ ФИНАНСОВОГО СЕКТОРА В СТРУКТУРНОЙ ПЕРЕСТРОЙКЕ ЭКОНОМИКИ
+                    .progUserTitle Модератор
+                    .progUserWr.nab
+                        include spk/zabotkin
+                    .progUserTitle Участники
+                        .progUserFlex
+                            .progUserFlexItem
+                                .progUserWr.nab
+                                    include spk/nabiulina
+                                .progUserWr
+                                        include spk/verhosh
+                            .progUserFlexItem
+                                .progUserWr
+                                    include spk/skor
+                                .progUserWr
+                                    include spk/udaeva
+                    .progBottomPlaceholder
+                        .progItemBottom
+                            .progTime 11:40 – 11:50
+                            .progItemTitle
+                                include cofee
+                                div Перерыв
+        //////////////// 11:50 – 13:10
+        .progRow
+            .progCell.last(style="flex: 100%;")
+                .progTime 11:50 – 13:10
+                    .progItemFormat Панельная дискуссия
+                    .progItemTitle ПРИОРИТЕТНЫЕ ЗАДАЧИ И ПРОЕКТЫ БАНКА РОССИИ: СТАТУС
+                    .progUserTitle Модератор
+                    .progUserWr.nab
+                        include spk/chist
+                    .progUserTitle Участники
+                        .progUserFlex
+                            .progUserFlexItem
+                                .progUserWr.nab
+                                    include spk/skor
+                                .progUserWr
+                                    include spk/tulin
+                            .progUserFlexItem
+                                .progUserWr
+                                    include spk/udaeva
+                    .progBottomPlaceholder
+                    .progItemBottom
+                        .progTime 13:10 – 13:20
+                        .progItemTitle
+                            include cofee
+                            div Перерыв
+
+        //////
+        .progRow
+            .progCell.last(style="flex: 100%;")
+                .progTime 13:20 – 14:40
+                    .progItemFormat Панельная дискуссия
+                    .progItemTitle ВНУТРЕННИЙ КОНТУР: ЗАДАЧИ И ПРИОРИТЕТЫ
+                    .progUserTitle Модератор
+                    .progUserWr.nab
+                        include spk/vester
+                    .progUserTitle Участники
+                        .progUserFlex
+                            .progUserFlexItem
+                                .progUserWr.nab
+                                    include spk/zubarev
+                                .progUserWr
+                                    include spk/kahrumanova
+                            .progUserFlexItem
+                                .progUserWr
+                                    include spk/kazarin
+                    .progBottomPlaceholder
+                    .progItemBottom
+                        .progTime 13:10 – 13:20
+                        .progItemTitle
+                            include cofee
+                            div Перерыв
+        ///////
+        //.progRow
+
             .progCell.first(style="flex: 50%;")
                 .progTime 9:30 - 10:50
                 .progItemFormat Панельная дискуссия
@@ -55,7 +148,7 @@
                         .progItemTitle
                             include cofee
                             div Перерыв
-        .progRow
+        //.progRow
             .progCell.last(style="flex: 100%;")
                 .progTime 13:00 – 13:30
                 //.progItemFormat Открытие совещания
@@ -68,7 +161,7 @@
                         .progItemTitle
                             include cofee
                             div Перерыв
-        .progRow
+        //.progRow
             .progCell.first(style="flex: 50%;")
                 .progTime 13:40 – 15:00
                 .progItemFormat Панельная дискуссия
