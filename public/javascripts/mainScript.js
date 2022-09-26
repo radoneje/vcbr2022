@@ -95,7 +95,7 @@
             updateStatus: async function () {
                 try {
                    //var  d = await axios.get("https://front.sber.link/vcbr/status/");
-                    var d = await axios.get("/vcbr/status/");
+                    var d = await axios.get("/status/");
                     this.isLoaded=true;
                     this.status=d.data.status;
                     console.log(this.status,d.data)
