@@ -106,6 +106,7 @@ router.post("/chatSend", checkLogin, async (req, res, next) => {
 
     var r = await req.knex("t_chat").insert({text: req.body.text, userid: req.session["user"].id}, "*");
     var dt = await req.knex.select("*").from("v_chat").where({id: r[0].id})
+    console.log(dt[0],r)
     res.json(dt[0]);
 })
 

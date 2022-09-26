@@ -17,7 +17,7 @@
             </svg>
 
         .VideoBox
-            .videoPlayer
+            .videoPlayer#player
                 .videoWrapper
                     iframe(src="api/iframe" border="0" width="1280" height="720")
                     //video#my-video(class="video-js vjs-big-play-centered" data-setup="{}" controls preload="auto" width="1024" height="720" poster="https://front.sber.link/vcbr/images/poster.png" playsinline)
@@ -50,7 +50,7 @@
                     </svg>
 
                     div Техподдержка
-        //.playerRBottom(v-show="isQActive" style="display:none" )
+        .playerRBottom(v-show="isQActive" style="display:none" )
             .qWr#qBox
                 .qItem(v-for="item in q" v-if="q.length>0")
                     .qItemUser {{item.f}} {{item.i}},&#x20;

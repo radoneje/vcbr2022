@@ -94,10 +94,11 @@
             },
             updateStatus: async function () {
                 try {
-                   var  d = await axios.get("https://front.sber.link/vcbr/status/");
-                    //var d = await axios.get("/vcbr/status/");
+                   //var  d = await axios.get("https://front.sber.link/vcbr/status/");
+                    var d = await axios.get("/vcbr/status/");
                     this.isLoaded=true;
                     this.status=d.data.status;
+                    console.log(this.status,d.data)
                     var to=parseInt(d.data.timeout);
                     if(Number.isInteger(to) && to>5 && to<300)
                         this.timeout=to;
@@ -163,6 +164,7 @@
                         this.q = this.q.filter(cc => {
                         return (cc.isApproved || cc.userid == user.id) && ! cc.isDeleted;
                     })
+
 
                     if (inserted) {
                         var objDiv2 = document.getElementById("qBox");
@@ -230,6 +232,7 @@
                // if (e.code == "Enter")
                 //    this.qSend();
            // })
+
             this.updateStatus();
             this.stat();
         }

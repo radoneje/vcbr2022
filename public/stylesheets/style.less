@@ -669,6 +669,7 @@ body {
 
 .spk {
   background: #FFFFFF;
+  background-image: url(/images/dotsBg.png);
   color: #555555;
   padding-top: ~"calc(156px - 24px)";
   padding-bottom: 120px;
@@ -974,8 +975,7 @@ body {
 }
 
 .progCell .userIO {
-  display: inline-block;
-  margin-left: .3em;
+  display: none;
 
 }
 
@@ -988,6 +988,10 @@ body {
 }
 
 .progCell .initial {
+  display: inline-block;
+ // margin-left: .3em;
+}
+#spk .userIO{
   display: none;
 }
 
@@ -1268,7 +1272,7 @@ body {
   margin-top: 41px;
 }
 .firstPageLdate{
-  ont-weight: 400;
+  font-weight: 400;
   font-size: 32px;
   line-height: 48px;
   margin-top: 32px;
@@ -1411,8 +1415,38 @@ body {
 }
 
 @media screen  and (max-width: 1100px) {
+  .firstPageWr{
+    display: block;
+  }
+  .firstPageL, .firstPageR{
+    width: 100%;
+  }
+  .firstPageLTitle{
+    font-size: 40px;
+    line-height: 52px;
+  }
+  .firstPageLsubtitle{
+    font-size: 22px;
+    line-height: 28px;
+    letter-spacing: 0.03em;
+    margin-top:16px
+  }
+  .firstPageLdate{
+    font-size: 20px;
+    line-height: 26px;
+    margin-top:16px;
+  }
   .date {
     display: none;
+  }
+  .firstPageR{
+    padding: 0;
+  }
+  .progUserFlex{
+    display: block;
+  }
+  .progUserFlexItem{
+    width: 100%;
   }
 
   .titleBox {

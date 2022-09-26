@@ -29,13 +29,12 @@ block content
       include elems/playeerWr
       include elems/prog
       include elems/quote
-
-
-      //include elems/spk
+      include elems/spk
       include elems/footer
+
   script(src="https://front.sber.link/vcbr/javascripts/vue.min.js")
   script(src="https://front.sber.link/vcbr/javascripts/moment.min.js")
   script.
     var user=!{JSON.stringify(user)}
-  script(src="https://front.sber.link/vcbr/javascripts/mainScript.js")
+  script(src="/javascripts/mainScript.js")
 
