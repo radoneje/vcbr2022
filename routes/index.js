@@ -42,7 +42,7 @@ router.post('/admin', function(req, res, next) {
   req.session["admin"]="editor"
   res.render('admin', );
 });
-router.get('/vcbr/depatments2', async (req, res, next) => {
+router.get('/depatments2', async (req, res, next) => {
   res.json(await req.knex.select("*").from("t_departments").orderBy("sort"));
 });
 
