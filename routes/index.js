@@ -20,7 +20,7 @@ router.get('/qa', function(req, res, next) {
 });
 router.get('/', function(req, res, next) {
 
-  res.render('zagluska', { user: req.session["user"] });
+  res.render('zaglushka', { user: req.session["user"] });
 });
 
 router.get('/admin', function(req, res, next) {
