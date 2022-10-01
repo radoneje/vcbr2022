@@ -36,7 +36,7 @@
                     .votingItemTitle {{item.title}}
                     .votingItemRes
                         .votingItemResStart {{getPercent(vote[0].total, item.count)}}
-                        .votingItemResEnd(v-bind:style="{width:calc(getPercent(vote[0].total, item.count) - 60px)} ") &nbsp;
+                        .votingItemResEnd(v-bind:style="{width:'calc('+getPercent(vote[0].total, item.count)+' - 60px)'} ") &nbsp;
         .playerLTop
             .playerLTopWr
                 .playerLTopButton(v-bind:class="{active:isQActive}" v-on:click="isQActive=true" )
