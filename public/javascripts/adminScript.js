@@ -17,7 +17,8 @@
             status:{id:1,q:false},
             logs:{users:[], logs:[]},
             isLogShow:false,
-            dept:[]
+            dept:[],
+            raiting:[]
         },
         methods: {
             changeQApproved:async function(item){
@@ -241,6 +242,42 @@
                     if (!focused)
                         this.votes = (await axios.get("/api/votes")).data;
                     ////////////
+
+                    /////////////
+
+                    inserted = false;
+                    d.data.q.forEach(c => {
+
+                        if (this.q.filter(cc => cc.id == c.id).length == 0) {
+                            this.q.push(c);
+                            inserted = true;
+                        }
+                    });
+                    this.q.forEach(cc => {
+                        if (d.data.q.filter(c => cc.id == c.id).length == 0) {
+                            cc.isDeleted = true;
+                        }
+                    })
+                    this.q = this.q.filter(cc => {
+                        return !cc.isDeleted
+                    })
+
+                    focused = false;
+                    document.querySelectorAll(".qVoteAnswerWr input").forEach(e => {
+                        if (document.activeElement == e)
+                            focused = true;
+                    })
+                    if (!focused)
+                        this.votes = (await axios.get("/api/votes")).data;
+
+                    focused = false;
+                    document.querySelectorAll(".qRaitingAnwerItem input").forEach(e => {
+                        if (document.activeElement == e)
+                            focused = true;
+                    })
+                    if (!focused)
+                        this.votes = (await axios.get("/api/votes")).data;
+                    ////////////
                 } catch(e){
                     console.warn(e);
                 }
@@ -256,6 +293,10 @@
             updateDept:async function(){
                 var r= await axios.get("/api/depatments");
                 this.dept=r.data;
+            },
+            updateRaiting:async function(){
+                var r= await axios.get("/api/depatments");
+                this.raiting=r.raiting;
             },
             changeDept:async function(item){
                 var r= await axios.post("/api/depatments", item);
@@ -294,6 +335,10 @@
                 }
                 if (val == 6) {
                     this.updateDept();
+
+                }
+                if (val == 7) {
+                    this.updateRaiting();
 
                 }
             }

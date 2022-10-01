@@ -101,7 +101,18 @@ block content
                                 </svg>
                 .playerRBottom(v-show="activeSect==7" style="display:none" )
                     .qWr#reitingBox
-                        div рейтинг
+                        .qItem(v-for="item in raiting" v-if="raiting.length>0" :id="'raiting'+item.id")
+                            .qVoteAnswerWr
+                                .qRaitingAnwerItem(v-for="answ in item.answers")
+                                    .aanswCount  NO
+                                    input.aanswTitle(v-model="answ.title" v-on:change="answRaitingChange(answ)")
+
+                                    .button.red(v-on:click="deleteRaitingAnswer(answ)") Удалить вопрос
+                    .sendWr
+                        .sendBox
+
+                            .buttonGroup
+                                .button(v-on:click="addRaiting()") добавить рейтинг
                 .playerRBottom(v-show="activeSect==3" style="display:none" )
                     .qWr#voteBox
                         .qItem(v-for="item in votes" v-if="votes.length>0" :id="'vote'+item.id")
