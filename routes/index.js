@@ -76,7 +76,7 @@ router.get("/status", async (req, res)=>{
   catch(e){
     console.warn(e)
   }
-  res.json({chat, q, vote, status:status, timeout:300});
+  res.json({chat, q, vote, status:status, timeout});
 })
 
 module.exports = router;
