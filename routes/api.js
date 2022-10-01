@@ -245,7 +245,7 @@ router.post("/changeStatus", checkAdmin, async (req, res, next) => {
 router.post("/stat", async (req, res, next) => {
     if (!req.session["user"])
         return res.sendStatus(401);
-   // req.updateUser(req.session["user"]);
+    req.updateUser(req.session["user"]);
     return res.json(299);
 });
 

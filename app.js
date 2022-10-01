@@ -60,12 +60,12 @@ let users = [];
 })();
 async function updateLogs(){
     try{
-       // await knex("t_log").insert({count:users.length,values:JSON.stringify(users)})
+        await knex("t_log").insert({count:users.length,values:JSON.stringify(users)})
     }
     catch (e) {
         console.warn(e)
     }
-   // setTimeout(updateLogs,5*60*1000)
+    setTimeout(updateLogs,5*60*1000)
 }
 app.use("/", (req, res, next) => {
     req.knex = knex;
