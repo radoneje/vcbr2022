@@ -251,7 +251,7 @@
                                 });
                             } else {
                                 var store = localStorage.getItem("raiting" + item.id);
-                                console.log(store, item)
+
                                 let box = document.getElementById("rating" + item.id)
                                 if (store && box) {
                                     store = JSON.parse(store);
@@ -283,7 +283,7 @@
                 } catch (e) {
                     console.warn(e);
                 }
-                console.log("setTimeout", this.timeout)
+
                 setTimeout(() => {
                     this.updateStatus();
                 }, this.timeout * 1000)
