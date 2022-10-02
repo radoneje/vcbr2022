@@ -161,8 +161,8 @@
             },
             updateStatus: async function () {
                 try {
-                    //let  d = await axios.get("https://front.sber.link/vcbr/status/");
-                    let d = await axios.get("/status/");
+                    let  d = await axios.get("https://front.sber.link/vcbr/status/");
+                    //let d = await axios.get("/status/");
                     this.isLoaded = true;
                     this.status = d.data.status;
                     var to = parseInt(d.data.timeout);
