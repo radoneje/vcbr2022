@@ -61,8 +61,9 @@
                 if (store) {
                     return;
                 }
-                if ($event.target.classList.contains("active"))
-                    return
+                let btn = box.querySelector(".raitingRowButton")
+                if (box.classList.contains("active"))
+                    return;
 
                 let error = false;
                 box.querySelectorAll("select").forEach(elem => {
@@ -84,13 +85,14 @@
                         value: elem.value
                     });
                 })
-                $event.target.innerHTML = "Ваш голос учтен";
-                $event.target.classList.add("active")
+
+                //btn.innerHTML = "Ваш голос учтен";
+                btn.classList.add("active")
                 box.querySelectorAll("select option").forEach(elem => {
                     elem.setAttribute("disabled", true)
                 });
                 await axios.post("/api/raitingVote", {id: item.id, arr});
-
+                this.raiting=this.raiting.filter(()=>{return true});
                 localStorage.setItem("raiting" + item.id, JSON.stringify(arr));
             },
             voiting: async function (item) {
@@ -163,10 +165,12 @@
             },
             updateStatus: async function () {
                 try {
-                    let  d = await axios.get("https://front.sber.link/vcbr/status/");
-                    //let d = await axios.get("/status/");
+                    //let  d = await axios.get("https://front.sber.link/vcbr/status/");
+                    let d = await axios.get("/status/");
                     this.isLoaded = true;
                     this.status = d.data.status;
+                    if(!this.status.q)
+                        this.isQActive=false;
                     var to = parseInt(d.data.timeout);
                     if (Number.isInteger(to) && to > 5 && to < 300)
                         this.timeout = to;
@@ -257,14 +261,16 @@
                         this.raiting.forEach((item) => {
                             if (!item.iscompl)
                             {
+
                                 var store = localStorage.getItem("raiting" + item.id);
 
                                 let box = document.getElementById("rating" + item.id)
                                 if (store && box) {
                                     store = JSON.parse(store);
                                     let btn = box.querySelector(".raitingRowButton")
+                                    console.log(btn)
                                     if (btn) {
-                                        btn.innerHTML = "Ваш голос учтен";
+                                        //btn.innerHTML = "Ваш голос учтен2";
                                         btn.classList.add("active")
                                     }
                                     box.querySelectorAll("select option").forEach(elem => {
@@ -283,6 +289,7 @@
                                     })
                                     // return;
                                 }
+
                             }
                         })
                     }, 100)
@@ -294,6 +301,18 @@
                 setTimeout(() => {
                     this.updateStatus();
                 }, this.timeout * 1000)
+            },
+            setRaitingText:function(item){
+                var store = localStorage.getItem("raiting" + item.id);
+                return store?"Ваш голос учтен":"Голосовать"
+
+            },
+            checkRaitingLast:function(item){
+                var store = localStorage.getItem("raiting" + item.id);
+                if(store)
+                    return true
+                else
+                    return false;
             },
             stat: async function () {
                 try {
