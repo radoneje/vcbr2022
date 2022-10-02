@@ -23,7 +23,7 @@ block content
 
                 .voteComplBox
                     .votingItem(v-for="item in vote[0].answers")
-                        .votingItemTitle(style="with:100%") {{item.title}}
+                        .votingItemTitle(style="width:100%") {{item.title}}
                         .votingItemRes
                             .votingItemResStart &nbsp;
                                 span(v-if="vote[0].iscompl") {{getPercent(vote[0].total, item.count)}}
