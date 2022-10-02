@@ -32,24 +32,30 @@
                 return perc.toPrecision(4) + "%"
             },
             changeRaitingAnsf: function (raitingid, e) {
-                console.log("changeRaitingAnsf", e)
+
                 e.target.classList.remove("error")
                 let box=document.querySelector("#rating"+raitingid);
                 var arr=[];
-                box.querySelectorAll("select").forEach(s=>{
-                    if(e.value>0)
-                        arr.push[e.value];
+                document.querySelectorAll("#rating"+raitingid+" select").forEach(s=>{
+                    console.log("in query ",s.value)
+                    if(parseInt(s.value)>0) {
+                        arr.push(s.value);
+
+                    }
                 })
+                console.log(arr, box)
                 box.querySelectorAll("option").forEach(option=>{
                     option.removeAttribute("disabled")
                 })
+
+
                 box.querySelectorAll("option").forEach(option=>{
-                    if(option.value==e.target.value)
-                        option.setAttribute("disabled","disabled")
-                  /*  arr.forEach(a=>{
+                    //if(option.value==e.target.value)
+                      //  option.setAttribute("disabled","disabled")
+                    arr.forEach(a=>{
                         if(option.value==a)
                             option.setAttribute("disabled","disabled")
-                    })*/
+                    })
                 })
 
             },
