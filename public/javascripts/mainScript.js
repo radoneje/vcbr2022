@@ -40,15 +40,11 @@
                     console.log("in query ",s.value)
                     if(parseInt(s.value)>0) {
                         arr.push(s.value);
-
                     }
                 })
-                console.log(arr, box)
                 box.querySelectorAll("option").forEach(option=>{
                     option.removeAttribute("disabled")
                 })
-
-
                 box.querySelectorAll("option").forEach(option=>{
                     //if(option.value==e.target.value)
                       //  option.setAttribute("disabled","disabled")
