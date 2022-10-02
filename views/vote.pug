@@ -23,7 +23,7 @@ block content
 
                 .voteComplBox
                     .votingItem(v-for="item in vote[0].answers")
-                        .votingItemTitle(style="width:100%") {{item.title}}
+                        .votingItemTitle{{item.title}}
                         .votingItemRes
                             .votingItemResStart &nbsp;
                                 span(v-if="vote[0].iscompl") {{getPercent(vote[0].total, item.count)}}
@@ -35,8 +35,8 @@ block content
 
                 .voteComplBox
                     .votingItem(v-for="item, i in raiting[0].answers" style="margin-left: 48px;")
-                        .votingItemTitle(v-if="raiting[0].iscompl") <span class="raitingNo">{{i+1}}:</span> {{item.title}}
-                        .votingItemTitle(v-else) &#8226; {{item.title}}
+                        .votingItemTitle(v-if="raiting[0].iscompl" style="width:100%" ) <span class="raitingNo">{{i+1}}:</span> {{item.title}}
+                        .votingItemTitle(v-else style="width:100%" ) &#8226; {{item.title}}
 
 
     script(src="https://front.sber.link/vcbr/javascripts/vue.min.js")
@@ -102,14 +102,15 @@ block content
                         var d = await axios.get("/vcbr/status/");
 
                         this.vote = d.data.vote
-                        this.raiting = d.data.raiting;
-                        this.raiting.forEach((item) => {
+                        let tmp = d.data.raiting;
+                        tmp.forEach((item) => {
                             if (item.iscompl) {
                                 item.answers.sort((a, b) => {
                                     return a.count - b.count
                                 });
                             }
                         });
+                        this.raiting=tmp;
                     } catch (e) {
                         console.warn(e);
                     }

@@ -243,15 +243,20 @@
                     }
                     ////////////
                     this.vote = d.data.vote
-                    this.raiting = d.data.raiting;
+                    let tmp = d.data.raiting;
+                    tmp.forEach((item) => {
+                        if (item.iscompl) {
+                            item.answers.sort((a, b) => {
+                                return a.count - b.count
+                            });
+                        }
+                    });
+                    this.raiting=tmp;
 
                     setTimeout(() => {
                         this.raiting.forEach((item) => {
-                            if (item.iscompl) {
-                                 item.answers.sort((a, b) => {
-                                    return a.count - b.count
-                                });
-                            } else {
+                            if (!item.iscompl)
+                            {
                                 var store = localStorage.getItem("raiting" + item.id);
 
                                 let box = document.getElementById("rating" + item.id)
