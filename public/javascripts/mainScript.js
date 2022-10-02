@@ -8,43 +8,110 @@
             qText: "",
             chatText: [],
             isLoading: false,
-            vote:[],
-            status:{},
-            isLoaded:false,
-            timeout:20,
-            logTimeout:60
+            vote: [],
+            raiting: [],
+            status: {},
+            isLoaded: false,
+            timeout: 20,
+            logTimeout: 60
         },
         methods: {
+            sortRaiting: function (arr) {
 
-            getCalcPercent:function(total, count){
+
+            },
+            getCalcPercent: function (total, count) {
 
                 var perc = getPercent(total, count);
-                return  'calc(100% - '+perc+')';
+                return 'calc(100% - ' + perc + ')';
             },
-            getPercent:function(total, count){
+            getPercent: function (total, count) {
                 if (total == 0)
                     return "0%"
-                       var perc = (parseFloat(count) / parseFloat(total) * 100);
+                var perc = (parseFloat(count) / parseFloat(total) * 100);
                 return perc.toPrecision(4) + "%"
             },
-            voiting:async function(item){
+            changeRaitingAnsf: function (raitingid, e) {
+                console.log("changeRaitingAnsf", e)
+                e.target.classList.remove("error")
+                let box=document.querySelector("#rating"+raitingid);
+                var arr=[];
+                box.querySelectorAll("select").forEach(s=>{
+                    if(e.value>0)
+                        arr.push[e.value];
+                })
+                box.querySelectorAll("option").forEach(option=>{
+                    option.removeAttribute("disabled")
+                })
+                box.querySelectorAll("option").forEach(option=>{
+                    if(option.value==e.target.value)
+                        option.setAttribute("disabled","disabled")
+                  /*  arr.forEach(a=>{
+                        if(option.value==a)
+                            option.setAttribute("disabled","disabled")
+                    })*/
+                })
 
-                var store=localStorage.getItem("vote"+item.voteid);
-                if(store==item.id)
+            },
+            raitingVote: async function (item, $event) {
+                var store = localStorage.getItem("raiting" + item.id);
+                let box = document.getElementById("rating" + item.id)
+                if (store) {
+                    return;
+                }
+                if ($event.target.classList.contains("active"))
                     return
 
-                if(store) {
+                let error = false;
+                box.querySelectorAll("select").forEach(elem => {
+                    console.log(elem.value)
+                    if (parseInt(elem.value) < 0) {
+                        elem.classList.add("error")
+                        elem.focus();
+                        error = true;
+                    } else
+                        elem.classList.remove("error")
+                })
+                if (error)
+                    return;
+                let txt = $event.target.innerHTML;
+                let arr = [];
+                box.querySelectorAll("select").forEach(elem => {
+                    arr.push({
+                        id: elem.getAttribute("raiting"),
+                        value: elem.value
+                    });
+                })
+                $event.target.innerHTML = "Ваш голос учтен";
+                $event.target.classList.add("active")
+                box.querySelectorAll("select option").forEach(elem => {
+                    elem.setAttribute("disabled", true)
+                });
+                await axios.post("/api/raitingVote", {id: item.id, arr});
+
+                localStorage.setItem("raiting" + item.id, JSON.stringify(arr));
+            },
+            voiting: async function (item) {
+
+                var store = localStorage.getItem("vote" + item.voteid);
+                if (store == item.id)
+                    return
+
+                if (store) {
 
                     await axios.post("/api/reVote", {id: store});
                 }
                 await axios.post("/api/Vote", {id: item.id});
-                localStorage.setItem("vote"+item.voteid, item.id);
-                this.vote=this.vote.filter(v=>{return true});
+                localStorage.setItem("vote" + item.voteid, item.id);
+                this.vote = this.vote.filter(v => {
+                    return true
+                });
+
 
             },
-            checkVote:function(item){
-                var store=localStorage.getItem("vote"+item.voteid);
-                return store==item.id;
+            checkVote: function (item) {
+                var store = localStorage.getItem("vote" + item.voteid);
+                return store == item.id;
             },
             chatSend: async function () {
                 if (this.chatText.length < 1)
@@ -94,14 +161,13 @@
             },
             updateStatus: async function () {
                 try {
-                   var  d = await axios.get("https://front.sber.link/vcbr/status/");
-                    //var d = await axios.get("/status/");
-                    this.isLoaded=true;
-                    this.status=d.data.status;
-                    console.log(this.status,d.data)
-                    var to=parseInt(d.data.timeout);
-                    if(Number.isInteger(to) && to>5 && to<300)
-                        this.timeout=to;
+                    //let  d = await axios.get("https://front.sber.link/vcbr/status/");
+                    let d = await axios.get("/status/");
+                    this.isLoaded = true;
+                    this.status = d.data.status;
+                    var to = parseInt(d.data.timeout);
+                    if (Number.isInteger(to) && to > 5 && to < 300)
+                        this.timeout = to;
                     var inserted = false;
                     d.data.chat.forEach(c => {
 
@@ -154,15 +220,15 @@
                     this.q = this.q.filter(cc => {
                         return !cc.isDeleted || cc.userid == user.id
                     })
-                    this.q.forEach(q=>{
-                        d.data.q.forEach(c=>{
-                            if(q.id==c.id){
-                                q.isApproved=c.isApproved;
+                    this.q.forEach(q => {
+                        d.data.q.forEach(c => {
+                            if (q.id == c.id) {
+                                q.isApproved = c.isApproved;
                             }
                         })
                     })
-                        this.q = this.q.filter(cc => {
-                        return (cc.isApproved || cc.userid == user.id) && ! cc.isDeleted;
+                    this.q = this.q.filter(cc => {
+                        return (cc.isApproved || cc.userid == user.id) && !cc.isDeleted;
                     })
 
 
@@ -175,41 +241,77 @@
                     }
                     ////////////
                     this.vote = d.data.vote
+                    this.raiting = d.data.raiting;
+
+                    setTimeout(() => {
+                        this.raiting.forEach((item) => {
+                            if (item.iscompl) {
+                                 item.answers.sort((a, b) => {
+                                    return a.count - b.count
+                                });
+                            } else {
+                                var store = localStorage.getItem("raiting" + item.id);
+                                console.log(store, item)
+                                let box = document.getElementById("rating" + item.id)
+                                if (store && box) {
+                                    store = JSON.parse(store);
+                                    let btn = box.querySelector(".raitingRowButton")
+                                    if (btn) {
+                                        btn.innerHTML = "Ваш голос учтен";
+                                        btn.classList.add("active")
+                                    }
+                                    box.querySelectorAll("select option").forEach(elem => {
+
+                                        elem.setAttribute("disabled", true)
+                                    });
+
+                                    store.forEach(s => {
+                                        // if()
+                                        let select = box.querySelectorAll("select").forEach(ss => {
+                                            if (s.id == ss.getAttribute("raiting")) {
+                                                ss.value = s.value;
+                                            }
+                                        })
+
+                                    })
+                                    // return;
+                                }
+                            }
+                        })
+                    }, 100)
                     /////
-                }
-                catch (e){
+                } catch (e) {
                     console.warn(e);
                 }
-                console.log("setTimeout", this.timeout )
+                console.log("setTimeout", this.timeout)
                 setTimeout(() => {
                     this.updateStatus();
                 }, this.timeout * 1000)
             },
-            stat:async function(){
+            stat: async function () {
                 try {
 
-                    var d=await axios.post("/api/stat");
+                    var d = await axios.post("/api/stat");
 
-                    var to=parseInt(d.data.timeout);
-                    if(Number.isInteger(to) && to>5 && to<300)
-                        this.logTimeout=to;
+                    var to = parseInt(d.data.timeout);
+                    if (Number.isInteger(to) && to > 5 && to < 300)
+                        this.logTimeout = to;
 
-                }
-                catch(e){
+                } catch (e) {
                     console.warn(e)
                 }
-                console.log("setLogTimeout",this.logTimeout )
+                console.log("setLogTimeout", this.logTimeout)
                 setTimeout(() => {
                     this.stat();
                 }, this.logTimeout * 1000);
             }
         },
         watch: {
-            status:function (val){
-              //  if(!val.q)
-               //     this.isQActive=false
+            status: function (val) {
+                //  if(!val.q)
+                //     this.isQActive=false
 
-                    },
+            },
             isQActive: function (val) {
                 var objDiv1 = document.getElementById("chatBox");
                 if (objDiv1)
@@ -225,13 +327,13 @@
         },
         mounted: function () {
             document.getElementById("chatInput").addEventListener("keyup", (e) => {
-               // if (e.code == "Enter")
-               //     this.chatSend();
+                // if (e.code == "Enter")
+                //     this.chatSend();
             })
-           // document.getElementById("qInput").addEventListener("keyup", (e) => {
-               // if (e.code == "Enter")
-                //    this.qSend();
-           // })
+            // document.getElementById("qInput").addEventListener("keyup", (e) => {
+            // if (e.code == "Enter")
+            //    this.qSend();
+            // })
 
             this.updateStatus();
             this.stat();
@@ -284,10 +386,11 @@ function scrollToSmoothly(pos, time) {
         }
     });
 }
-function downloadFile(src, name){
+
+function downloadFile(src, name) {
     console.log(src)
     var link = document.createElement('a');
-    link.style.display="none"
+    link.style.display = "none"
     link.href = src;
     link.download = name;
     link.dispatchEvent(new MouseEvent('click'));

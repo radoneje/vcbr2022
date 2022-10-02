@@ -18,7 +18,8 @@
             logs:{users:[], logs:[]},
             isLogShow:false,
             dept:[],
-            raiting:[]
+            raiting:[],
+            raitingTitle:""
         },
         methods: {
             changeQApproved:async function(item){
@@ -54,6 +55,17 @@
                         })
                 })
             },
+
+            rVote: async function (item) {
+                var r = await axios.post("/api/rVote", {id: item.id});
+                this.raiting.forEach(v => {
+                    if (v.id == r.data.voteid)
+                        v.answers.forEach(a => {
+                            if (a.id == r.data.id)
+                                a.count = r.data.count;
+                        })
+                })
+            },
             deleteAnswer: async function (item) {
                 var r = await axios.post("/api/deleteAnswer", {id: item.id});
                 this.votes.forEach(v => {
@@ -61,8 +73,19 @@
                         v.answers = v.answers.filter(a => a.id != r.data.id);
                 })
             },
+            deleteRaitingAnswer: async function (item) {
+                var r = await axios.post("/api/deleteRaitingAnswer", {id: item.id});
+                this.raiting.forEach(v => {
+                    if (v.id == r.data.raitingid)
+                        v.answers = v.answers.filter(a => a.id != r.data.id);
+                })
+            },
             answChange: async function (item,) {
                 await axios.post("/api/changeAnswer", {id: item.id, title: item.title});
+
+            },
+            answRaitingChange: async function (item,) {
+                await axios.post("/api/answRaitingChange", {id: item.id, title: item.title});
 
             },
             getAnswProc: function (item, count) {
@@ -81,12 +104,26 @@
                 var r = await axios.post("/api/addAnswer", {id: item.id});
                 item.answers.push(r.data);
             },
+            addRaitingAnswer: async function (item) {
+                var r = await axios.post("/api/addRaitingAnswer", {id: item.id});
+                item.answers.push(r.data);
+            },
             resultVote: async function (item) {
                 var r = await axios.post("/api/resultVote", {iscompl: !item.iscompl, id: item.id});
                 item.iscompl = r.data.iscompl;
             },
+
+            resultRaiting: async function (item) {
+                var r = await axios.post("/api/resultRaiting", {iscompl: !item.iscompl, id: item.id});
+                item.iscompl = r.data.iscompl;
+            },
             startVote: async function (item) {
                 var r = await axios.post("/api/startVote", {isactive: !item.isactive, id: item.id});
+                item.isactive = r.data.isactive;
+            },
+
+            startRaiting: async function (item) {
+                var r = await axios.post("/api/startRaiting", {isactive: !item.isactive, id: item.id});
                 item.isactive = r.data.isactive;
             },
             deleteVote: async function (item) {
@@ -94,6 +131,12 @@
                     return;
                 var r = await axios.post("/api/deleteVote", {id: item.id});
                 this.votes = this.votes.filter(v => v.id != r.data.id);
+            },
+            deleteRaiting: async function (item) {
+                if (!confirm("Удалить рейтинг?"))
+                    return;
+                var r = await axios.post("/api/deleteRaiting", {id: item.id});
+                this.raiting = this.raiting.filter(v => v.id != r.data.id);
             },
             addVote: async function () {
                 if (this.voteTitle.length == 0)
@@ -106,6 +149,17 @@
                     console.log(elem, elem.offsetTop);
                     elem.parentNode.scrollTop = elem.offsetTop - 60 - elem.clientHeight;
                     this.voteTitle = "";
+                }, 0)
+            },
+            addRaiting: async function () {
+
+                var r = await axios.post("/api/addRaiting",{title:this.raitingTitle});
+                this.raiting = r.data.list;
+                console.log(this.raiting);
+                setTimeout(() => {
+                    var elem = document.getElementById("raiting" + r.data.id);
+                    elem.parentNode.scrollTop = elem.offsetTop - 60 - elem.clientHeight;
+                    this.raitingTitle=""
                 }, 0)
             },
             addUser: async function () {
@@ -276,7 +330,7 @@
                             focused = true;
                     })
                     if (!focused)
-                        this.votes = (await axios.get("/api/votes")).data;
+                        this.raiting = (await axios.get("/api/raiting")).data;
                     ////////////
                 } catch(e){
                     console.warn(e);
@@ -295,8 +349,8 @@
                 this.dept=r.data;
             },
             updateRaiting:async function(){
-                var r= await axios.get("/api/depatments");
-                this.raiting=r.raiting;
+                var r= await axios.get("/api/raiting");
+                this.raiting=r.data;
             },
             changeDept:async function(item){
                 var r= await axios.post("/api/depatments", item);

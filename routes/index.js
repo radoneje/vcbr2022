@@ -68,6 +68,21 @@ router.get("/status", async (req, res)=>{
     item.answers.forEach(a=>{total+=a.count});
     item.total=total;
   }
+  let raiting=await req.knex.select("*").from("t_raiting").where({isDeleted:false, isactive:true}).orderBy("id");
+
+
+  for(let item of raiting){
+    item.answers=await( req.knex.select("*").from("t_raitinganswers").where({raitingid:item.id, isDeleted:false}).orderBy("id"));
+    let total=0;
+    let i=0;
+    item.answers.forEach(a=>{
+      i++;
+      a.i=i;
+      total+=a.count
+    });
+    item.total=total;
+
+  }
   let status=(await req.knex.select("*").from("t_status"))[0]
   var timeout=20;
   try {
@@ -76,7 +91,7 @@ router.get("/status", async (req, res)=>{
   catch(e){
     console.warn(e)
   }
-  res.json({chat, q, vote, status:status, timeout});
+  res.json({chat, q, vote,raiting, status:status, timeout});
 })
 
 module.exports = router;

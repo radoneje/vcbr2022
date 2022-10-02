@@ -1087,7 +1087,52 @@ body {
 .qVoteAnswerWr, .qRaitingAnwerItem {
   padding-bottom: 24px;
 }
+.qVoteAnswerWr{
+  padding-top:24px;
+}
+.qRaitingAnwerItem{
+  display: flex;
+}
+.raitingRow{
+  text-align: left;
+  color:#74777B;
+  font-size: 16px;
+  font-weight: 300;
+  margin-bottom: 24px;
+}
+.raitingRowSelect select{
+  border: 1px solid #74777B;;
+  border-radius: 8px;
+  padding: 4px 8px;
+}
+.raitingRowSelect select.error{
+  border: 1px solid red;;
+  color:red;
 
+}
+
+.raitingRowButton{
+  border: 1px solid #74777B;;
+  cursor: pointer;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 400;
+  padding: 12px
+}
+.raitingRowButton:hover{
+  color:black;
+}
+.raitingRowButton.active {
+  cursor: auto;
+  background: #00BBEE;
+  color:white;
+}
+select:focus, select:active{
+  outline: none !important;
+}
+.raitingRowTitle{
+  margin-bottom: 8px;
+}
 .voteWr {
 
     background: #FFFFFF;
@@ -1201,8 +1246,6 @@ body {
   cursor: auto;
   background: #00BBEE;
   color:white;
-
-
 }
 .voteComplBox{
   margin-top: 48px;
@@ -1304,6 +1347,9 @@ body {
 }
 .mobileBreak{
   display: inline-block;
+}
+.raitingNo{
+  font-weight: bold;
 }
 @media screen  and (max-width: 1800px) {
   .firstPageLTitle{
@@ -1887,7 +1933,7 @@ body {
   .votingBox {
     font-size: 12px;
     line-height: 12px;
-    margin-top: 4px;
+    margin-top: 12px;
   }
 
   .votingButton {

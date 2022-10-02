@@ -160,21 +160,44 @@ router.post("/addVote", checkAdmin, async (req, res, next) => {
     r=await req.knex("t_vote").insert(req.body, "*");
     res.json({id:r[0].id, list:await getVotes(req)});
 });
+router.post("/addRaiting", checkAdmin, async (req, res, next) => {
+    r=await req.knex("t_raiting").insert( req.body,"*");
+    res.json({id:r[0].id, list:await getRaiting(req)});
+});
+
 async function getVotes(req){
     var r= await req.knex.select("*").from("t_vote").where({isDeleted:false}).orderBy("id");
     return r;
+}
+async function getRaiting(req) {
+    var r= await req.knex.select("*").from("t_raiting").where({isDeleted:false}).orderBy("id");
 }
 router.post("/deleteVote", checkAdmin, async (req, res, next) => {
     let r=await req.knex("t_vote").update({isDeleted:true},"*").where({id:req.body.id});
     res.json({id:r[0].id});
 });
 
+router.post("/deleteRaiting", checkAdmin, async (req, res, next) => {
+    let r=await req.knex("t_raiting").update({isDeleted:true},"*").where({id:req.body.id});
+    res.json({id:r[0].id});
+});
+
+
 router.post("/startVote", checkAdmin, async (req, res, next) => {
     let r=await req.knex("t_vote").update({isactive:req.body.isactive},"*").where({id:req.body.id});
     res.json(r[0]);
 });
+router.post("/startRaiting", checkAdmin, async (req, res, next) => {
+    let r=await req.knex("t_raiting").update({isactive:req.body.isactive},"*").where({id:req.body.id});
+    res.json(r[0]);
+});
 router.post("/resultVote", checkAdmin, async (req, res, next) => {
     let r=await req.knex("t_vote").update({iscompl:req.body.iscompl},"*").where({id:req.body.id});
+    res.json(r[0]);
+});
+
+router.post("/resultRaiting", checkAdmin, async (req, res, next) => {
+    let r=await req.knex("t_raiting").update({iscompl:req.body.iscompl},"*").where({id:req.body.id});
     res.json(r[0]);
 });
 router.get("/votes", checkAdmin, async (req, res, next) => {
@@ -184,12 +207,30 @@ router.get("/votes", checkAdmin, async (req, res, next) => {
     }
     res.json(r);
 });
+router.get("/raiting", checkAdmin, async (req, res, next) => {
+    let r=await req.knex.select("*").from("t_raiting").where({isDeleted:false}).orderBy("id");
+    for(let item of r){
+        item.answers=await( req.knex.select("*").from("t_raitinganswers").where({raitingid:item.id, isDeleted:false}).orderBy("id"));
+    }
+    res.json(r);
+});
+
 router.post("/addAnswer", checkAdmin, async (req, res, next) => {
     let r = await req.knex("t_voteanswers").insert({voteid:req.body.id}, "*");
     res.json(r[0])
 })
+
+router.post("/addRaitingAnswer", checkAdmin, async (req, res, next) => {
+    let r = await req.knex("t_raitinganswers").insert({raitingid:req.body.id}, "*");
+    res.json(r[0])
+})
 router.post("/changeAnswer", checkAdmin, async (req, res, next) => {
     let r = await req.knex("t_voteanswers").update({title:req.body.title}, "*").where({id:req.body.id});
+    res.json(r[0])
+})
+
+router.post("/answRaitingChange", checkAdmin, async (req, res, next) => {
+    let r = await req.knex("t_raitinganswers").update({title:req.body.title}, "*").where({id:req.body.id});
     res.json(r[0])
 })
 router.post("/deleteAnswer", checkAdmin, async (req, res, next) => {
@@ -197,10 +238,31 @@ router.post("/deleteAnswer", checkAdmin, async (req, res, next) => {
     res.json(r[0])
 })
 
+router.post("/deleteRaitingAnswer", checkAdmin, async (req, res, next) => {
+    let r = await req.knex("t_raitinganswers").update({isDeleted:true}, "*").where({id:req.body.id});
+    res.json(r[0])
+})
+
 router.post("/aVote", checkAdmin, async (req, res, next) => {
     let r = await req.knex.select("*").from("t_voteanswers").where({id:req.body.id});
 
      r= await req.knex("t_voteanswers").update({count:(r[0].count+1)}, "*").where({id:req.body.id});
+    res.json(r[0])
+})
+router.post("/raitingVote", async (req, res, next) => {
+   for(let a of req.body.arr){
+       //console.log("update t_raitinganswers set count=count+"+a.value+" where id="+a.id)
+       let r=await req.knex.raw("update t_raitinganswers set count=count+"+a.value+" where id="+a.id)
+   }
+
+  res.json("ok");
+})
+
+
+router.post("/rVote", checkAdmin, async (req, res, next) => {
+    let r = await req.knex.select("*").from("t_raitinganswers").where({id:req.body.id});
+
+    r= await req.knex("t_raitinganswers").update({count:(r[0].count+1)}, "*").where({id:req.body.id});
     res.json(r[0])
 })
 router.post("/changeChatAnswer", checkAdmin, async (req, res, next) => {
@@ -225,10 +287,17 @@ router.post("/reVote", checkLogin, async (req, res)=>{
 })
 router.post("/vote", checkLogin, async (req, res)=>{
     try {
-        let r = await req.knex.select("*").from("t_voteanswers").where({id: req.body.id});
+       /* let r = await req.knex.select("*").from("t_voteanswers").where({id: req.body.id});
         let count=r[0].count + 1;
         r = await req.knex("t_voteanswers").update({count:count }, "*").where({id: req.body.id});
-        res.json(r[0])
+
+        */
+        try {
+            let r = await req.knex.raw("UPDATE t_voteanswers SET count=count+1 WHERE id=" + req.body.id)
+            res.json(r[0])
+        }catch (e){
+            res.sendStatus(404)
+        }
     }
     catch (e){
         console.warn(e);

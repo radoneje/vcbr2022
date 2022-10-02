@@ -3,11 +3,13 @@ extends layout
 block head
     link(rel='stylesheet', href='/stylesheets/style.css')
     style.
-        .votingItemTitle{
-            color:#74777B !important;
+        .votingItemTitle {
+            color: #74777B !important;
         }
-        .voteWr{
-            padding: 34px !important;}
+
+        .voteWr {
+            padding: 34px !important;
+        }
 
         .voteTitle.left {
             text-align: center !important;
@@ -26,22 +28,45 @@ block content
                             .votingItemResStart &nbsp;
                                 span(v-if="vote[0].iscompl") {{getPercent(vote[0].total, item.count)}}
                             .votingItemResEnd(v-if="vote[0].iscompl" v-bind:style="{width:getPercent(vote[0].total, item.count)}") &nbsp;
+
+
+            .voteWr(v-if="raiting.length>0" )
+                .voteTitle(v-bind:class="") {{raiting[0].title}}
+
+                .voteComplBox
+                    .votingItem(v-for="item, i in raiting[0].answers" style="margin-left: 48px;")
+                        .votingItemTitle(v-if="raiting[0].iscompl") <span class="raitingNo">{{i+1}}:</span> {{item.title}}
+                        .votingItemTitle(v-else) &#8226; {{item.title}}
+
+
     script(src="https://front.sber.link/vcbr/javascripts/vue.min.js")
     script(src="https://front.sber.link/vcbr/javascripts/moment.min.js")
     style.
-        body{width:1920px;height:1280px;overflow: hidden}
-        .voteWr{position: inherit; border-radius:40px;}
-        .adminBottom{
+        body {
+            width: 1920px;
+            height: 1280px;
+            overflow: hidden
+        }
+
+        .voteWr {
+            position: inherit;
+            border-radius: 40px;
+        }
+
+        .adminBottom {
             display: flex;
             align-content: center;
-            flex-wrap: wrap;}
-        .voteTitle{
+            flex-wrap: wrap;
+        }
+
+        .voteTitle {
             margin-bottom: 78px;
             font-weight: 500;
             font-size: 52px;
             line-height: 60px;
         }
-        .votingItem{
+
+        .votingItem {
 
             color: #FFFFFF;
             font-size: 42px;
@@ -49,14 +74,16 @@ block content
             line-height: 48px;
             padding: 8px 0;
         }
-        .votingItemResStart{
-            width:175px;
+
+        .votingItemResStart {
+            width: 175px;
         }
     script.
         var app = new Vue({
             el: "#app",
             data: {
-                vote: []
+                vote: [],
+                raiting: [],
             },
             methods: {
                 getCalcPercent: function (total, count) {
@@ -75,9 +102,15 @@ block content
                         var d = await axios.get("/vcbr/status/");
 
                         this.vote = d.data.vote
-                        console.log(this.vote)
-                    }
-                    catch (e){
+                        this.raiting = d.data.raiting;
+                        this.raiting.forEach((item) => {
+                            if (item.iscompl) {
+                                item.answers.sort((a, b) => {
+                                    return a.count - b.count
+                                });
+                            }
+                        });
+                    } catch (e) {
                         console.warn(e);
                     }
                     setTimeout(() => {
