@@ -39,7 +39,7 @@ block content
                         .votingItemTitle(v-if="!raiting[0].iscompl" style="width:100%" v-html="'&#8226;&nbsp;'+item.title")
                         div(v-else style="display:flex;align-items: center;width: 100%;")
                             .votingItemTitle(style="width:50%;padding-right: 1em;" ) <span class="raitingNo">{{i+1}}:</span> {{item.title}}
-                            .votingItemRes
+                            .votingItemRes(style="display: flex;")
                                 .votingItemResStart &nbsp;
                                     span(v-if="raiting[0].iscompl") {{getRaitingPercent(raiting[0], item.count, i)}}
                                 .votingItemResBox(v-if="raiting[0].iscompl" style="width:calc(100% - 175px)")
