@@ -42,7 +42,7 @@ block content
                             .votingItemRes
                                 .votingItemResStart &nbsp;
                                     span(v-if="raiting[0].iscompl") {{getRaitingPercent(raiting[0], item.count, i)}}
-                                .votingItemResBox(v-if="raiting[0].iscompl" style="width:100%")
+                                .votingItemResBox(v-if="raiting[0].iscompl" style="width:calc(100% - 175px)")
                                     .votingItemResEnd( v-bind:style="{width:getRaitingCalcPercent(raiting[0], item.count, i)}") &nbsp;
 
 
