@@ -27,10 +27,10 @@
 
     .playerR(style="flex:33%")
         .voteWr(v-if="raiting.length>0")
-            .voteTitle(v-bind:class="{left:raiting[0].iscompl}") {{raiting[0].title}}
-                .votingBox(v-if="!raiting[0].iscompl" :id="'rating'+raiting[0].id")
+            .voteTitle(v-bind:class="{left:raiting[0].iscompl}" v-html="raiting[0].title" )
+            .votingBox(v-if="!raiting[0].iscompl" :id="'rating'+raiting[0].id")
                     .raitingRow(v-for="item in raiting[0].answers"  )
-                        .raitingRowTitle {{item.title}}
+                        .raitingRowTitle() {{item.title}}
                         .raitingRowSelect
                              select(v-on:change="changeRaitingAnsf(raiting[0].id,$event)" :raiting="item.id")
                                 option(value="-1") выберите рейтинг
@@ -39,7 +39,7 @@
                         .raitingRowButton(v-on:click="raitingVote(raiting[0], $event)")
                             span {{setRaitingText(raiting[0])}}
 
-                .votingBox(v-if="raiting[0].iscompl" :id="'rating'+raiting[0].id")
+            .votingBox(v-if="raiting[0].iscompl" :id="'rating'+raiting[0].id")
                     .raitingRow(v-for="item, i in raiting[0].answers"  )
                         .raitingRowTitle <span class="raitingNo">{{i+1}}:</span> {{item.title}}
         .voteWr(v-if="vote.length>0")
