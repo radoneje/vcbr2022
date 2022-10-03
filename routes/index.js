@@ -19,8 +19,10 @@ router.get('/qa', function(req, res, next) {
   return res.render('qa');
 });
 router.get('/', function(req, res, next) {
-
-  res.render('zaglushka', { user: req.session["user"] });
+  if(!req.session["user"])
+    return res.render('login');
+  var user=req.session["user"];
+ // res.render('zaglushka', { user: req.session["user"] });
 });
 
 router.get('/admin', function(req, res, next) {
