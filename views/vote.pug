@@ -40,9 +40,9 @@ block content
                         div(v-else style="display:flex;align-items: center;width: 100%;")
                             .votingItemTitle(style="width:50%;padding-right: 1em;" ) <span class="raitingNo">{{i+1}}:</span> {{item.title}}
                             .votingItemRes(style="display: flex;")
-                                .votingItemResStart &nbsp;
+                                .votingItemResStart(style="width: 180px;") &nbsp;
                                     span(v-if="raiting[0].iscompl") {{getRaitingPercent(raiting[0], item.count, i)}}
-                                .votingItemResBox(v-if="raiting[0].iscompl" style="width:calc(100% - 175px)")
+                                .votingItemResBox(v-if="raiting[0].iscompl" style="width:calc(100% - 180px)")
                                     .votingItemResEnd( v-bind:style="{width:getRaitingCalcPercent(raiting[0], item.count, i)}") &nbsp;
 
 
