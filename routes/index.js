@@ -56,8 +56,8 @@ router.get("/status", async (req, res)=>{
   let q=await req.knex.select("*").from("v_q").orderBy("date", );
 
   let count=50-chat.length;
-  if(count<0)
-    chat=chat.slice(count);
+  if(chat.length>50)
+    chat=chat.slice(-50);
 
   // count=50-q.length;
   //if(count<0)
