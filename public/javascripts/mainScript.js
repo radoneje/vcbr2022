@@ -16,6 +16,22 @@
             logTimeout: 60
         },
         methods: {
+            chekLikeQ: function(item){
+
+                if(localStorage.getItem("likeQ"+item.id))
+                    return false
+                else
+                    return true;
+            },
+            like:async function(item){
+                if(localStorage.getItem("likeQ"+item.id))
+                    return false
+                item.likes++;
+                localStorage.setItem("likeQ"+item.id, true)
+                await axios.post("/api/likeQ",{qid:item.id});
+                this.q=this.q.filter(()=>{return true})
+
+            },
             sortRaiting: function (arr) {
 
 
@@ -165,8 +181,8 @@
             },
             updateStatus: async function () {
                 try {
-                    let  d = await axios.get("https://front.sber.link/vcbr/status/");
-                    //let d = await axios.get("/status/");
+                    //let  d = await axios.get("https://front.sber.link/vcbr/status/");
+                    let d = await axios.get("/status/");
                     this.isLoaded = true;
                     this.status = d.data.status;
                     if(!this.status.q)
@@ -211,6 +227,7 @@
                     /////////////
 
                     inserted = false;
+
                     d.data.q.forEach(c => {
 
                         if (this.q.filter(cc => cc.id == c.id).length == 0) {
@@ -230,6 +247,7 @@
                         d.data.q.forEach(c => {
                             if (q.id == c.id) {
                                 q.isApproved = c.isApproved;
+                                q.likes = c.likes;
                             }
                         })
                     })
@@ -245,6 +263,7 @@
                                 objDiv2.scrollTop = objDiv2.scrollHeight;
                             }, 10)
                     }
+                    console.log(this.q)
                     ////////////
                     this.vote = d.data.vote
                     let tmp = d.data.raiting;

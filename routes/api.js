@@ -14,6 +14,16 @@ router.post('/depatments', checkAdmin,async (req, res, next) => {
     await req.knex("t_departments").update(req.body).where({id:id})
     res.json(await req.knex.select("*").from("t_departments").orderBy("sort"));
 });
+router.post("/likeQ",async (req, res,next)=>{
+    if(!req.session["user"])
+        return res.sendStatus(404);
+    if(!Number.isInteger(req.body.qid))
+        return res.sendStatus(403);
+
+    console.log(req.body.qid, req.body.qid);
+    await req.knex.raw("update t_q SET likes=likes+1 where id="+req.body.qid );
+    res.json("ok")
+})
 router.post('/login', async (req, res, next) => {
     let code = parseInt(req.body.code);
     if (isNaN(code))

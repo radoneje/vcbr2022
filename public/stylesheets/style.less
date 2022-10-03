@@ -1254,7 +1254,49 @@ select:focus, select:active{
 .voteComplBox .votingItem{
   margin-bottom: 12px;
 }
+.qItemGroup{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 12px 0;
+}
+.qitemLike{
+  width: max-content;
+  cursor: pointer;
+  padding: 4px;
+  padding-right: 8px;
+  border-radius: 4px;
+  padding-bottom: 0;
+  background: #01B7E9;
+  color:white;
+  display: flex;
+  align-items: flex-start;
+  font-size: 14px;
+}
 
+.qitemLike svg{
+  margin-right: .5em;
+  width: 1.5em;
+  height: auto;
+}
+.qitemLike svg path{
+  fill:white;
+}
+.qitemLike.active  svg path{
+  fill:#555555;
+}
+.qitemLike.active{
+  background: transparent;
+  color:inherit;
+}
+
+.qitemLike.active:hover{
+  background: #01B7E9;
+  color:white;
+}
+.qItemGroup .qItemTime{
+  width: max-content;
+}
 .qItemText textarea {
   width: 100%;
   box-sizing: border-box;
