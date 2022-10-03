@@ -22,6 +22,7 @@ router.get('/', function(req, res, next) {
   if(!req.session["user"])
     return res.render('login');
   var user=req.session["user"];
+  res.render('index', { user: req.session["user"] });
  // res.render('zaglushka', { user: req.session["user"] });
 });
 
