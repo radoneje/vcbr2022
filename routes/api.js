@@ -33,7 +33,7 @@ router.post('/login', async (req, res, next) => {
         normalizeString(user.i) === normalizeString(req.body.i)
     ) {
 
-     /*   if (req.users.filter(u => {
+     /*  if (req.users.filter(u => {
             return u.id == user.id
         }).length > 0) {
             return res.json({error: true, doubleLogin: true});
