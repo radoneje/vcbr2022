@@ -7,7 +7,7 @@ block content
     .tower#app
         .adminBottom
             .playerRBottom(style="height:100%;")
-                .qWr#qBox
+                .qWr#qBox(style="height: 100%;")
                     .qItem(v-if="q.length==0")
                         .qItemText  пока нет вопросов
                     .qItem(v-for="item in q" v-if="q.length>0")
