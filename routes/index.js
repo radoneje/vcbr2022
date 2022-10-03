@@ -59,9 +59,10 @@ router.get("/status", async (req, res)=>{
   if(count<0)
     chat=chat.slice(count);
 
-   count=50-q.length;
-  if(count<0)
-    q=q.slice(count);
+  // count=50-q.length;
+  //if(count<0)
+  if(count>50)
+    q=q.slice(50);
 
   let vote=await req.knex.select("*").from("t_vote").where({isDeleted:false, isactive:true}).orderBy("id");
 
