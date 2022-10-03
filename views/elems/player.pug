@@ -80,8 +80,8 @@
                             div {{item.likes}}
                         .qItemTime {{moment(item.date).format("HH:mm")}}
                             .qItemTimeAdd(v-if="!item.isApproved") Вопрос на модерации
-                .qItemTime(v-else) {{moment(item.date).format("HH:mm")}}
-                    .qItemTimeAdd(v-if="!item.isApproved") Вопрос на модерации
+                    .qItemTime(v-else) {{moment(item.date).format("HH:mm")}}
+                        .qItemTimeAdd(v-if="!item.isApproved") Вопрос на модерации
 
             .sendWr(v-show="status.q")
                 .sendBox
