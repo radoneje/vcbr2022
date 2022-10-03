@@ -113,7 +113,7 @@ block content
                 setError(arr.i,"Ошибка: введите имя")
                 return exit();
             }
-            if (!arr.code.value || arr.code.value.length !=6) {
+            if (!arr.code.value || arr.code.value.length <5 || arr.code.value.length >6 ) {
                 setError(arr.code, "Ошибка: некорректный код ")
                 return exit();
             }
