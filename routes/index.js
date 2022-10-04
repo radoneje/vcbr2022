@@ -9,6 +9,7 @@ router.get('/rest', function(req, res, next) {
 res.json(req.users);
 });
 router.get('/test', function(req, res, next) {
+  return res.render('zaglushka', { user: req.session["user"] });
   if(!req.session["user"])
     return res.render('login');
   var user=req.session["user"];
@@ -19,6 +20,7 @@ router.get('/qa', function(req, res, next) {
   return res.render('qa');
 });
 router.get('/', function(req, res, next) {
+ return res.render('zaglushka', { user: req.session["user"] });
   if(!req.session["user"])
     return res.render('login');
   var user=req.session["user"];
@@ -52,8 +54,8 @@ router.get('/depatments2', async (req, res, next) => {
 });
 
 router.get("/status", async (req, res)=>{
-  let chat=await req.knex.select("*").from("v_chat").orderBy("date", );
-  let q=await req.knex.select("*").from("v_q").orderBy("date", );
+  let chat=[];//=await req.knex.select("*").from("v_chat").orderBy("date", );
+  let q=[];//=await req.knex.select("*").from("v_q").orderBy("date", );
 
   let count=50-chat.length;
   if(chat.length>50)
@@ -65,7 +67,7 @@ router.get("/status", async (req, res)=>{
   if(q.length>50)
     q=q.slice(-50);
 
-  let vote=await req.knex.select("*").from("t_vote").where({isDeleted:false, isactive:true}).orderBy("id");
+  let vote=[];//=await req.knex.select("*").from("t_vote").where({isDeleted:false, isactive:true}).orderBy("id");
 
   for(let item of vote){
     item.answers=await( req.knex.select("*").from("t_voteanswers").where({voteid:item.id, isDeleted:false}).orderBy("id"));
@@ -73,7 +75,7 @@ router.get("/status", async (req, res)=>{
     item.answers.forEach(a=>{total+=a.count});
     item.total=total;
   }
-  let raiting=await req.knex.select("*").from("t_raiting").where({isDeleted:false, isactive:true}).orderBy("id");
+  let raiting=[];//=await req.knex.select("*").from("t_raiting").where({isDeleted:false, isactive:true}).orderBy("id");
 
 
   for(let item of raiting){
